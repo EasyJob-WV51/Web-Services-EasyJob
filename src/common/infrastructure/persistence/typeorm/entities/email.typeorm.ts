@@ -1,7 +1,6 @@
-import { Column, Unique } from 'typeorm';
+import { Column } from 'typeorm';
 
-@Unique(['email'])
-export class EmailTypeorm {
+export class EmailTypeORM {
   @Column('varchar', { name: 'email', length: 150, nullable: false })
   public value: string;
 
@@ -9,7 +8,7 @@ export class EmailTypeorm {
     this.value = value;
   }
 
-  public static from(value: string): EmailTypeorm {
-    return new EmailTypeorm(value);
+  public static from(value: string): EmailTypeORM {
+    return new EmailTypeORM(value);
   }
 }

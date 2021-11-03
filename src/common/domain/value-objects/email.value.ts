@@ -15,7 +15,7 @@ export class Email {
     email = (email ?? '').trim();
 
     if (email === '') {
-      notification.addError('email is required', null);
+      notification.addError('Email is required', null);
     }
 
     if (email.length > this.MAX_LENGTH) {
@@ -26,11 +26,11 @@ export class Email {
     }
 
     const regExp = new RegExp(
-      '^(([^<>()[\\]\\\\.,;:\\s@"]+(\\.[^<>()[\\]\\\\.,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
+      '^(([^<>()[\\].,;:\\s@"]+(\\.[^<>()[\\].,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$',
     );
 
     if (regExp.test(email) === false) {
-      notification.addError('email format is invalid', null);
+      notification.addError('Email format is invalid', null);
     }
 
     if (notification.hasErrors()) {
@@ -38,5 +38,9 @@ export class Email {
     }
 
     return Result.ok(new Email(email));
+  }
+
+  public getValue(): string {
+    return this.value;
   }
 }
