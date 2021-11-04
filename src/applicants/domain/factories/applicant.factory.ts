@@ -28,7 +28,7 @@ export class ApplicantFactory {
     );
   }
 
-  public withId(
+  public static withId(
     applicantId: ApplicantId,
     name: Name,
     email: Email,

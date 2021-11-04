@@ -8,6 +8,12 @@ export class AppNotification {
     this.errors.push(new AppError(message, cause));
   }
 
+  public addErrors(errors: AppError[]): void {
+    for (let i = 0; i < errors.length; i++) {
+      this.addError(errors[i].message, errors[i].cause);
+    }
+  }
+
   public hasErrors(): boolean {
     return this.errors.length > 0;
   }
