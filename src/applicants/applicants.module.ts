@@ -8,10 +8,11 @@ import { ApplicantsApplicationService } from './application/services/applicants-
 import { RegisterApplicantValidator } from './application/validators/register-applicant.validator';
 import { GetApplicantsHandler } from './application/handlers/queries/get-applicants.handler';
 import { Module } from '@nestjs/common';
+import { GetApplicantByIdHandler } from './application/handlers/queries/get-applicant-by-id.handler';
 
 export const CommandHandlers = [RegisterApplicantHandler];
 export const EventHandlers = [ApplicantRegisteredHandler];
-export const QueryHandlers = [GetApplicantsHandler];
+export const QueryHandlers = [GetApplicantsHandler, GetApplicantByIdHandler];
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([ApplicantTypeORM])],
