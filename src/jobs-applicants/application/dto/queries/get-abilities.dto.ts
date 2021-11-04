@@ -1,5 +1,6 @@
 export class GetAbilitiesDto {
   public id: number;
-  public amount: number;
+  public jobId: number;
+  public specialty: number;
   public currency: string;
 }

@@ -14,6 +14,7 @@ export class GetAbilitiesHandler implements IQueryHandler<GetAbilitiesQuery> {
     const sql = `
     SELECT 
         id,
+        announcementId,
         specialty,
         experience
     FROM
@@ -31,7 +32,8 @@ export class GetAbilitiesHandler implements IQueryHandler<GetAbilitiesQuery> {
     ) {
       const abilityDto = new GetAbilitiesDto();
       abilityDto.id = Number(ormAbility.id);
-      abilityDto.amount = Number(ormAbility.specialty);
+      abilityDto.jobId = Number(ormAbility.announcementId);
+      abilityDto.specialty = ormAbility.specialty;
       abilityDto.currency = ormAbility.experience;
 
       return abilityDto;
