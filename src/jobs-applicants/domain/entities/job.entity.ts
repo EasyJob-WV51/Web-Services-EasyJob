@@ -1,6 +1,6 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Id } from '../../../common/domain/value-objects/id.value';
-import { Money } from '../value-objects/money.value';
+import { Money } from '../../../common/domain/value-objects/money.value';
 import { JobDate } from '../value-objects/job-date.value';
 import { JobApplied } from '../events/job-applied';
 
