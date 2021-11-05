@@ -12,18 +12,12 @@ module.exports = {
 };
 
 function getEntityDirectory() {
-  let path = 'dist/src/**/infrastructure/persistence/typeorm/entities/*.js';
-  if (process.env.NODE_ENV === 'migration') {
-    path = 'src/**/infrastructure/persistence/typeorm/entities/*.ts';
-  }
+  const path = 'dist/src/**/infrastructure/persistence/typeorm/entities/*.js';
   return path;
 }
 
 function getMigrationDirectory() {
-  let path =
+  const path =
     'dist/src/common/infrastructure/persistence/typeorm/migrations/*.js';
-  if (process.env.NODE_ENV === 'migration') {
-    path = 'src/common/infrastructure/persistence/typeorm/migrations/*.ts';
-  }
   return path;
 }
