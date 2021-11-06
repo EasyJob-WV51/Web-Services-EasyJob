@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { getManager } from 'typeorm';
 import { GetJobsQuery } from '../../queries/get-jobs.query';
-import { GetJobsDto } from '../../dto/queries/get-jobs.dto';
+import { GetJobDto } from '../../dto/queries/get-job.dto';
 
 @QueryHandler(GetJobsQuery)
 export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
@@ -32,10 +32,10 @@ export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
       return [];
     }
 
-    const jobs: GetJobsDto[] = ormJobs.map(function (
+    const jobs: GetJobDto[] = ormJobs.map(function (
       ormJob,
     ) {
-      const jobDto = new GetJobsDto();
+      const jobDto = new GetJobDto();
       jobDto.id = Number(ormJob.id);
       jobDto.companyId = Number(ormJob.companyId);
       jobDto.title = ormJob.title;

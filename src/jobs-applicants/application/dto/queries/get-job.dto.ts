@@ -1,4 +1,4 @@
-export class GetJobsDto {
+export class GetJobDto {
   public id: number;
   public companyId: number;
   public title: string;

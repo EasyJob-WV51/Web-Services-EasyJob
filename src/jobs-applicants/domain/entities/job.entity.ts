@@ -47,6 +47,8 @@ export class Job extends AggregateRoot {
       this.companyId.getValue(),
       this.showTitle(),
       this.description,
+      this.specialty,
+      this.experience,
       this.showSalary().getAmount(),
       this.showSalary().getCurrency(),
       this.isVisible(),

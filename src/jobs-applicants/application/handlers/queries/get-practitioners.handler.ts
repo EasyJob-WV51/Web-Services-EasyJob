@@ -1,6 +1,6 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { getManager } from 'typeorm';
-import { GetJobsDto } from '../../dto/queries/get-jobs.dto';
+import { GetJobDto } from '../../dto/queries/get-job.dto';
 import { GetPractitionersQuery } from '../../queries/get-practitioners.query';
 
 @QueryHandler(GetPractitionersQuery)
@@ -34,10 +34,10 @@ export class GetPractitionersHandler implements IQueryHandler<GetPractitionersQu
       return [];
     }
 
-    const practitioners: GetJobsDto[] = ormPractitioners.map(function (
+    const practitioners: GetJobDto[] = ormPractitioners.map(function (
       ormPractitioner,
     ) {
-      const jobDto = new GetJobsDto();
+      const jobDto = new GetJobDto();
       jobDto.id = Number(ormPractitioner.id);
       jobDto.companyId = Number(ormPractitioner.companyId);
       jobDto.title = ormPractitioner.title;

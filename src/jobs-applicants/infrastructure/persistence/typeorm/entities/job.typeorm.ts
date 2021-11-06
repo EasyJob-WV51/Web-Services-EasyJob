@@ -1,9 +1,9 @@
-import { Column, Entity, Unique } from 'typeorm';
+import { Column, Entity, ManyToOne, Unique } from 'typeorm';
 import { IdTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/id.typeorm';
 import { MoneyTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/money.typeorm';
 import { JobDateTypeOrm } from './job-date.typeorm';
 
-@Entity('jobs')
+@Entity('announcement')
 export class JobTypeOrm {
   @Column((type) => IdTypeORM, { prefix: false })
   public id: IdTypeORM;
