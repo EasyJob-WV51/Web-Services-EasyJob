@@ -1,8 +1,8 @@
 import { Column, Entity, Unique } from 'typeorm';
 import { CompanyIdTypeORM } from './company.id.typeorm';
 import { NameCompanyTypeORM } from './namecompany.typeorm';
-import { EmailTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/email.typeorm';
-import { PasswordTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/password.typeorm';
+import { EmailTypeORM } from 'src/common/infrastructure/persistence/typeorm/entities/email.typeorm';
+import { PasswordTypeORM } from 'src/common/infrastructure/persistence/typeorm/entities/password.typeorm';
 
 @Entity('companies')
 @Unique('UQ_company', ['email.value'])

@@ -1,12 +1,12 @@
 import { AggregateRoot } from '@nestjs/cqrs';
-import { CompanytId } from '../value-objects/company-id.value';
+import { CompanyId } from '../value-objects/company-id.value';
 import { NameCompany } from '../value-objects/namecompany.value';
 import { Email } from 'src/common/domain/value-objects/email.value';
 import { Password } from 'src/common/domain/value-objects/password.value';
 import { CompanyRegisteredEvent } from '../events/company-registered.event';
 
 export class Company extends AggregateRoot {
-  private id: CompanytId;
+  private id: CompanyId;
   private nameCompany: NameCompany;
   private email: Email;
   private password: Password;
@@ -14,7 +14,7 @@ export class Company extends AggregateRoot {
   private imgCompany: string;
 
   public constructor(
-    id: CompanytId,
+    id: CompanyId,
     nameCompany: NameCompany,
     email: Email,
     password: Password,
@@ -40,7 +40,7 @@ export class Company extends AggregateRoot {
     );
     this.apply(event);
   }
-  public getId(): CompanytId {
+  public getId(): CompanyId {
     return this.id;
   }
   public getNameCompany(): NameCompany {
@@ -60,7 +60,7 @@ export class Company extends AggregateRoot {
   public getImgCompany(): string {
     return this.imgCompany;
   }
-  public changeId(id: CompanytId) {
+  public changeId(id: CompanyId) {
     this.id = id;
   }
   public changeNameCompany(nameCompany: NameCompany) {

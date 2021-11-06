@@ -13,19 +13,16 @@ export class GetCompaniesHandler implements IQueryHandler<GetCompaniesQuery> {
     const sql = `
     SELECT 
         id,
-        last_name as lastName,
-        first_name as firstName,
-        my_specialty as mySpecialty,
-        my_experience as myExperience,
-        description,
+        name_company as nameCompany,
+        description_company as descriptionCompany,
+        img_company as imgCompany,
         email,
         password,
-        name_github as nameGithub,
-        img_applicant as imgApplicant
+        
     FROM
         companies
     ORDER BY
-        last_name, first_name;  
+        name_company;  
     `;
 
     const ormApplicants = await manager.query(sql);
@@ -34,24 +31,19 @@ export class GetCompaniesHandler implements IQueryHandler<GetCompaniesQuery> {
       return [];
     }
 
-    const applicants: GetApplicantsDto[] = ormApplicants.map(function (
+    const companies: GetCompaniesDto[] = ormApplicants.map(function (
       ormApplicant,
     ) {
-      const applicantDto = new GetApplicantsDto();
-      applicantDto.id = Number(ormApplicant.id);
-      applicantDto.firstName = ormApplicant.firstName;
-      applicantDto.lastName = ormApplicant.lastName;
-      applicantDto.email = ormApplicant.email;
-      applicantDto.password = ormApplicant.password;
-      applicantDto.mySpecialty = ormApplicant.mySpecialty;
-      applicantDto.myExperience = ormApplicant.myExperience;
-      applicantDto.description = ormApplicant.description;
-      applicantDto.nameGithub = ormApplicant.nameGithub;
-      applicantDto.imgApplicant = ormApplicant.imgApplicant;
-
-      return applicantDto;
+      const companyDto = new GetCompaniesDto();
+      companyDto.id = Number(ormApplicant.id);
+      companyDto.nameCompany = ormApplicant.nameCompany;
+      companyDto.email = ormApplicant.email;
+      companyDto.password = ormApplicant.password;
+      companyDto.descriptionCompany = ormApplicant.descriptionCompany;
+      companyDto.imgCompany = ormApplicant.imgCompany;
+      return companyDto;
     });
 
-    return applicants;
+    return companies;
   }
 }

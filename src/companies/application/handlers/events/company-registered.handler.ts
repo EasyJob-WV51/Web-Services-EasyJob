@@ -3,7 +3,7 @@ import { CompanyRegisteredEvent } from '../../../domain/events/company-registere
 import { IEventHandler } from '@nestjs/cqrs';
 
 @EventsHandler(CompanyRegisteredEvent)
-export class ApplicantCompanyHandler
+export class CompanyRegisteredHandler
   implements IEventHandler<CompanyRegisteredEvent>
 {
   constructor() {}
