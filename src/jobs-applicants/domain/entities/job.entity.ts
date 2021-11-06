@@ -9,6 +9,8 @@ export class Job extends AggregateRoot {
   private companyId: Id;
   private title: string;
   private description: string;
+  private specialty: string;
+  private experience: string;
   private salary: Money;
   private visible: boolean;
   private onlyPractitioner: boolean;
@@ -19,6 +21,8 @@ export class Job extends AggregateRoot {
     companyId: Id,
     title: string,
     description: string,
+    specialty: string,
+    experience: string,
     salary: Money,
     visible: boolean,
     onlyPractitioner: boolean,
@@ -29,6 +33,8 @@ export class Job extends AggregateRoot {
     this.companyId = companyId;
     this.title = title;
     this.description = description;
+    this.specialty = specialty;
+    this.experience = experience;
     this.salary = salary;
     this.visible = visible;
     this.onlyPractitioner = onlyPractitioner;
@@ -57,6 +63,14 @@ export class Job extends AggregateRoot {
     return this.description;
   }
 
+  public showSpecialityRequired(){
+    return this.specialty;
+  }
+
+  public showSpecialtyExperience() {
+    return this.experience;
+  }
+
   public showSalary() {
     return this.salary;
   }
@@ -79,6 +93,14 @@ export class Job extends AggregateRoot {
 
   public changeDescription(description: string) {
     this.description = description;
+  }
+
+  public changeSpecialty(specialty: string) {
+    this.specialty = specialty;
+  }
+
+  public changeExperienceRequired(experience: string) {
+    this.experience = experience;
   }
 
   public increaseSalary(increase: number) {

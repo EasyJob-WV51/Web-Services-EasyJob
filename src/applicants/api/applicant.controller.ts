@@ -20,7 +20,16 @@ import { GetApplicantByIdDto } from '../application/dtos/queries/get-applicant-b
 import { DeleteApplicantResponseDto } from '../application/dtos/response/delete-applicant-response.dto';
 import { UpdateApplicantRequestDto } from '../application/dtos/request/update-applicant-request.dto';
 import { UpdateApplicantResponseDto } from '../application/dtos/response/update-applicant-response.dto';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { GetApplicantsDto } from '../application/dtos/queries/get-applicants.dto';
 
+@ApiBearerAuth()
+@ApiTags('applicants')
 @Controller('applicants')
 export class ApplicantController {
   constructor(
@@ -29,6 +38,13 @@ export class ApplicantController {
   ) {}
 
   @Get()
+  @ApiOperation({ summary: 'Get All Applicants' })
+  @ApiResponse({
+    status: 200,
+    description: 'All applicants returned',
+    type: GetApplicantsDto,
+    isArray: true,
+  })
   async getApplicants(@Res({ passthrough: true }) response): Promise<object> {
     try {
       const applicants = await this.queryBus.execute(new GetApplicantsQuery());
@@ -39,6 +55,12 @@ export class ApplicantController {
   }
 
   @Get(':id')
+  @ApiOperation({ summary: 'Get Applicant by Id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Applicant returned',
+    type: GetApplicantsDto,
+  })
   async getApplicantById(
     @Param('id') id: number,
     @Res({ passthrough: true }) response,
@@ -58,6 +80,12 @@ export class ApplicantController {
   }
 
   @Post()
+  @ApiOperation({ summary: 'Create new Applicant' })
+  @ApiResponse({
+    status: 200,
+    description: 'Applicant created',
+    type: GetApplicantsDto,
+  })
   async register(
     @Body() registerApplicantRequestDto: RegisterApplicantRequestDto,
     @Res({ passthrough: true }) response,
@@ -79,6 +107,12 @@ export class ApplicantController {
   }
 
   @Put(':id')
+  @ApiOperation({ summary: 'Update applicant information' })
+  @ApiResponse({
+    status: 200,
+    description: 'Applicant information updated',
+    type: GetApplicantsDto,
+  })
   async update(
     @Param('id') id: number,
     @Body() updateApplicantRequestDto: UpdateApplicantRequestDto,
@@ -102,6 +136,12 @@ export class ApplicantController {
   }
 
   @Delete(':id')
+  @ApiOperation({ summary: 'Delete Applicant by Id' })
+  @ApiResponse({
+    status: 200,
+    description: 'Applicant deleted',
+    type: GetApplicantsDto,
+  })
   async delete(
     @Param('id') id: number,
     @Res({ passthrough: true }) response,
