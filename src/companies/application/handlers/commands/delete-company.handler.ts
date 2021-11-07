@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { DeleteCompanyCommand } from '../../commands/delete-company.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CompanyTypeORM } from '../../../infraestructure/persistence/typeorm/entities/company.typeorm';
+import { CompanyTypeORM } from '../../../infrastructure/persistence/typeorm/entities/company.typeorm';
 import { Repository } from 'typeorm';
 
 @CommandHandler(DeleteCompanyCommand)

@@ -2,7 +2,7 @@ import { RegisterCompanyHandler } from './application/handlers/commands/register
 import { CompanyRegisteredHandler } from './application/handlers/events/company-registered.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CompanyTypeORM } from './infraestructure/persistence/typeorm/entities/company.typeorm';
+import { CompanyTypeORM } from './infrastructure/persistence/typeorm/entities/company.typeorm';
 import { CompanyController } from './api/company.controller';
 import { CompaniesApplicationService } from './application/services/companies-application.service';
 import { RegisterCompanyValidator } from './application/validators/register-company.validator';

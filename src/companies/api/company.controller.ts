@@ -27,7 +27,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { GetCompaniesDto } from '../application/dtos/queries/get-companies.dto';
-
+//Controller
 @ApiBearerAuth()
 @ApiTags('companies')
 @Controller('companies')

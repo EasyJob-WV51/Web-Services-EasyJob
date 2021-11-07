@@ -17,30 +17,29 @@ export class GetCompaniesHandler implements IQueryHandler<GetCompaniesQuery> {
         description_company as descriptionCompany,
         img_company as imgCompany,
         email,
-        password,
-        
+        password
     FROM
         companies
     ORDER BY
         name_company;  
     `;
 
-    const ormApplicants = await manager.query(sql);
+    const ormCompanies = await manager.query(sql);
 
-    if (ormApplicants.length <= 0) {
+    if (ormCompanies.length <= 0) {
       return [];
     }
 
-    const companies: GetCompaniesDto[] = ormApplicants.map(function (
-      ormApplicant,
+    const companies: GetCompaniesDto[] = ormCompanies.map(function (
+      ormCompany,
     ) {
       const companyDto = new GetCompaniesDto();
-      companyDto.id = Number(ormApplicant.id);
-      companyDto.nameCompany = ormApplicant.nameCompany;
-      companyDto.email = ormApplicant.email;
-      companyDto.password = ormApplicant.password;
-      companyDto.descriptionCompany = ormApplicant.descriptionCompany;
-      companyDto.imgCompany = ormApplicant.imgCompany;
+      companyDto.id = Number(ormCompany.id);
+      companyDto.nameCompany = ormCompany.nameCompany;
+      companyDto.email = ormCompany.email;
+      companyDto.password = ormCompany.password;
+      companyDto.descriptionCompany = ormCompany.descriptionCompany;
+      companyDto.imgCompany = ormCompany.imgCompany;
       return companyDto;
     });
 

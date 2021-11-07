@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { CompanyTypeORM } from '../../infraestructure/persistence/typeorm/entities/company.typeorm';
+import { CompanyTypeORM } from '../../infrastructure/persistence/typeorm/entities/company.typeorm';
 import { Repository } from 'typeorm';
 import { UpdateCompanyRequestDto } from '../dtos/request/update-company-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
@@ -108,7 +108,7 @@ export class UpdateCompanyValidator {
 
     if (
       company != null &&
-      otherCompany.email.value !== otherCompany.email.value
+      otherCompany.email.value !== company.email.value
     ) {
       notification.addError('Company email is taken', null);
     }

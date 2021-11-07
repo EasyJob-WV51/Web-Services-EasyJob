@@ -44,7 +44,7 @@ export class CompaniesApplicationService {
     const getByIdResponseDto: GetCompanyByIdResponseDto =
       new GetCompanyByIdResponseDto(
         companyTypeORM.id.value,
-        companyTypeORM.name,
+        companyTypeORM.nameCompany.nameCompany,
         companyTypeORM.email.value,
         companyTypeORM.password.value,
         companyTypeORM.descriptionCompany,
@@ -114,7 +114,7 @@ export class CompaniesApplicationService {
     const updateCompanyResponseDto: UpdateCompanyResponseDto =
       new UpdateCompanyResponseDto(
         companyTypeORM.id.value,
-        companyTypeORM.nameCompany.firstName,
+        companyTypeORM.nameCompany.nameCompany,
         companyTypeORM.email.value,
         companyTypeORM.password.value,
         companyTypeORM.descriptionCompany,
@@ -143,7 +143,7 @@ export class CompaniesApplicationService {
     const deleteCompanyResponseDto: DeleteCompanyResponseDto =
       new DeleteCompanyResponseDto(
         companyTypeORM.id.value,
-        companyTypeORM.nameCompany.firstName,
+        companyTypeORM.nameCompany.nameCompany,
         companyTypeORM.email.value,
         companyTypeORM.password.value,
         companyTypeORM.descriptionCompany,
