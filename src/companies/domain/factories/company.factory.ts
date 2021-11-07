@@ -2,7 +2,7 @@ import { NameCompany } from '../value-objects/namecompany.value';
 import { Email } from '../../../common/domain/value-objects/email.value';
 import { Password } from '../../../common/domain/value-objects/password.value';
 import { Company } from '../entities/company.entity';
-import { CompanytId } from '../value-objects/company-id.value';
+import { CompanyId } from '../value-objects/company-id.value';
 
 export class CompanyFactory {
   public static createFrom(
@@ -13,7 +13,7 @@ export class CompanyFactory {
     imgCompany: string,
   ): Company {
     return new Company(
-      CompanytId.create(0),
+      CompanyId.create(0),
       nameCompany,
       email,
       password,
@@ -23,7 +23,7 @@ export class CompanyFactory {
   }
 
   public static withId(
-    companyId: CompanytId,
+    companyId: CompanyId,
     nameCompany: NameCompany,
     email: Email,
     password: Password,

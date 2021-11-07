@@ -1,15 +1,16 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { getManager } from 'typeorm';
-import { GetJobsQuery } from '../../queries/get-jobs.query';
 import { GetJobDto } from '../../dto/queries/get-job.dto';
+import { GetJobsBySpecialtyQuery } from '../../queries/get-jobs-by-specialty.query';
+import { Console } from 'inspector';
 
-@QueryHandler(GetJobsQuery)
-export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
+@QueryHandler(GetJobsBySpecialtyQuery)
+export class GetJobsBySpecialtyHandler implements IQueryHandler<GetJobsBySpecialtyQuery> {
   constructor() {}
 
-  async execute(query: GetJobsQuery) {
+  async execute(query: GetJobsBySpecialtyQuery) {
     const manager = getManager();
-
+    query.specialty = "ninguna";
     const sql = `
     SELECT 
         id,
@@ -23,8 +24,10 @@ export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
         date_format(date, '%d %m %Y') AS date
     FROM
         announcement
+    WHERE 
+        announcement.specialty = "${query.specialty}"
     ORDER BY
-        date DESC;  
+        date DESC;
     `;
 
     const ormJobs = await manager.query(sql);
@@ -38,12 +41,11 @@ export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
     ) {
       const jobDto = new GetJobDto();
       jobDto.id = Number(ormJob.id);
-      jobDto.companyId = Number(ormJob.companyId);
       jobDto.title = ormJob.title;
       jobDto.description = ormJob.description;
       jobDto.specialty = ormJob.specialty;
       jobDto.experience = ormJob.experience;
-      jobDto.salary = ormJob.salary;
+      jobDto.salary = Number(ormJob.salary);
       jobDto.currency = ormJob.currency;
       jobDto.visible = ormJob.visible;
       jobDto.date = ormJob.date;

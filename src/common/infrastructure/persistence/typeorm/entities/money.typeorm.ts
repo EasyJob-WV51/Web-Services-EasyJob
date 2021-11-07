@@ -1,7 +1,7 @@
 import { Column } from 'typeorm';
 
 export class MoneyTypeORM {
-  @Column('decimal', { precision: 7, scale: 2, nullable: false })
+  @Column('decimal', { name: 'salary', precision: 7, scale: 2, nullable: false })
   public amount: number;
 
   @Column('varchar', { name: 'currency', length: 5, nullable: false })

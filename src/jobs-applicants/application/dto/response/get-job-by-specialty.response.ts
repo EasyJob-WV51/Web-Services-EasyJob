@@ -1,4 +1,4 @@
-export class GetJobByIdResponseDto {
+export class GetJobBySpecialtyResponse {
   constructor(
     public id: number,
     public title: string,

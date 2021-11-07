@@ -13,9 +13,10 @@ export class GetPractitionersHandler implements IQueryHandler<GetPractitionersQu
     const sql = `
     SELECT 
         id,
-        companyId,
         title,
         description,
+        specialty,
+        experience,
         salary,
         currency,
         visible,
@@ -23,7 +24,7 @@ export class GetPractitionersHandler implements IQueryHandler<GetPractitionersQu
     FROM
         announcement
     WHERE
-        announcement.only_practitioner = 1
+        announcement.onlyPractitioner = 1
     ORDER BY
         date DESC;
     `;

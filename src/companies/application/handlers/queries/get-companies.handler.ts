@@ -2,6 +2,7 @@ import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { GetCompaniesQuery } from '../../queries/get-companies.query';
 import { getManager } from 'typeorm';
 import { GetCompaniesDto } from '../../dtos/queries/get-companies.dto';
+import { GetApplicantsDto } from '../../../../applicants/application/dtos/queries/get-applicants.dto';
 
 @QueryHandler(GetCompaniesQuery)
 export class GetCompaniesHandler implements IQueryHandler<GetCompaniesQuery> {

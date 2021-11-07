@@ -1,4 +1,4 @@
-export class GetJobByIdResponseDto {
+export class GetJobByRemuneration {
   constructor(
     public id: number,
     public title: string,
