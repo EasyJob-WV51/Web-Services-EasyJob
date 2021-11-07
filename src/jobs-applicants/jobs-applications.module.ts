@@ -10,8 +10,17 @@ import { JobTypeOrm } from './infrastructure/persistence/typeorm/entities/job.ty
 import { JobsApplicationService } from './application/services/jobs-application.service';
 import { GetJobByIdHandler } from './application/handlers/queries/get-job-by-id.handler';
 import { GetJobsBySpecialtyHandler } from './application/handlers/queries/get-jobs-by-specialty.handler';
+import { GetJobsByRemunerationHandler } from './application/handlers/queries/get-jobs-by-remuneration.handler';
 
-export const QueryHandlers = [GetJobsHandler, GetJobByIdHandler, GetJobsBySpecialtyHandler, GetPractitionersHandler];
+export const QueryHandlers =
+      [
+        GetJobsHandler,
+        GetJobByIdHandler,
+        GetJobsBySpecialtyHandler,
+        GetPractitionersHandler,
+        GetJobsByRemunerationHandler
+      ];
+
 export const Validators = [IdJobValidator];
 
 @Module({

@@ -8,9 +8,8 @@ import { Result } from 'typescript-result';
 import { AppNotification } from '../../common/application/app.notification';
 import { JobsApplicationService } from '../application/services/jobs-application.service';
 import { GetJobByIdResponseDto } from '../application/dto/response/get-job-by-id.response.dto';
-import { GetApplicantsDto } from '../../applicants/application/dtos/queries/get-applicants.dto';
-import { GetJobByRemuneration } from '../application/dto/response/get-job-by-remuneration.';
 import { GetJobBySpecialtyResponse } from '../application/dto/response/get-job-by-specialty.response';
+import { GetJobByRemunerationResponse } from '../application/dto/response/get-job-by-remuneration.response';
 
 @ApiTags('jobs')
 @Controller('jobs')
@@ -70,11 +69,11 @@ export class JobsController {
     type: GetJobByIdResponseDto,
   })
   async filterByRemuneration(
-    @Param('remuneration') remuneration: string,
+    @Param('remuneration') remuneration: number,
     @Res({ passthrough: true }) response,
   ): Promise<object> {
     try {
-      const result: Result<AppNotification, GetJobByRemuneration> =
+      const result: Result<AppNotification, GetJobByRemunerationResponse> =
         await this.jobsApplicationService.filterByRemuneration(remuneration);
 
       if (result.isSuccess()) {
@@ -86,19 +85,19 @@ export class JobsController {
     }
   }
 
-  @Get('specialty/:speciality')
+  @Get('specialty/:specialty')
   @ApiOperation({ summary: 'Get Job filter by speciality' })
   @ApiResponse({
     status: 200,
     description: 'Job returned',
-    type: GetJobByIdResponseDto,
+    type: GetJobBySpecialtyResponse,
   })
   async filterBySpecialty(
     @Param('specialty') specialty: string,
     @Res({ passthrough: true }) response,
   ): Promise<object> {
     try {
-      console.log(specialty);
+
       const result: Result<AppNotification, GetJobBySpecialtyResponse> =
         await this.jobsApplicationService.filterBySpecialty(specialty);
 

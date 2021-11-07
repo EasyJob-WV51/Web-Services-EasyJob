@@ -40,7 +40,6 @@ export class GetPractitionersHandler implements IQueryHandler<GetPractitionersQu
     ) {
       const jobDto = new GetJobDto();
       jobDto.id = Number(ormPractitioner.id);
-      jobDto.companyId = Number(ormPractitioner.companyId);
       jobDto.title = ormPractitioner.title;
       jobDto.description = ormPractitioner.description;
       jobDto.salary = ormPractitioner.salary;

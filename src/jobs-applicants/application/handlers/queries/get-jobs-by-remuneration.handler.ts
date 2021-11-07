@@ -1,14 +1,13 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { getManager } from 'typeorm';
 import { GetJobDto } from '../../dto/queries/get-job.dto';
-import { GetJobsBySpecialtyQuery } from '../../queries/get-jobs-by-specialty.query';
-import { Console } from 'inspector';
+import { GetJobsByRemunerationQuery } from '../../queries/get-jobs-by-remuneration.query';
 
-@QueryHandler(GetJobsBySpecialtyQuery)
-export class GetJobsBySpecialtyHandler implements IQueryHandler<GetJobsBySpecialtyQuery> {
+@QueryHandler(GetJobsByRemunerationQuery)
+export class GetJobsByRemunerationHandler implements IQueryHandler<GetJobsByRemunerationQuery> {
   constructor() {}
 
-  async execute(query: GetJobsBySpecialtyQuery) {
+  async execute(query: GetJobsByRemunerationQuery) {
     const manager = getManager();
     const sql = `
     SELECT 
@@ -24,7 +23,7 @@ export class GetJobsBySpecialtyHandler implements IQueryHandler<GetJobsBySpecial
     FROM
         announcement
     WHERE 
-        announcement.specialty = "${query.specialty}";
+        announcement.salary >= "${query.remuneration}";
     `;
 
     const ormJobs = await manager.query(sql);

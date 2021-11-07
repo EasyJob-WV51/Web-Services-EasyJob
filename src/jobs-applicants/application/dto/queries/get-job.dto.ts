@@ -1,6 +1,5 @@
 export class GetJobDto {
   public id: number;
-  public companyId: number;
   public title: string;
   public description: string;
   public specialty: string;

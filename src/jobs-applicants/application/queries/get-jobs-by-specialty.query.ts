@@ -1,3 +1,3 @@
 export class GetJobsBySpecialtyQuery {
-  constructor(public specialty: string) { }
+  constructor(readonly specialty: string) { }
 }

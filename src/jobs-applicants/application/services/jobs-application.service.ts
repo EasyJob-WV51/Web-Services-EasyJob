@@ -7,6 +7,8 @@ import { GetJobByIdQuery } from '../queries/get-job-by-id.query';
 import { GetJobByIdResponseDto } from '../dto/response/get-job-by-id.response.dto';
 import { GetJobsBySpecialtyQuery } from '../queries/get-jobs-by-specialty.query';
 import { GetJobBySpecialtyResponse } from '../dto/response/get-job-by-specialty.response';
+import { GetJobsByRemunerationQuery } from '../queries/get-jobs-by-remuneration.query';
+import { GetJobByRemunerationResponse } from '../dto/response/get-job-by-remuneration.response';
 
 @Injectable()
 export class JobsApplicationService {
@@ -40,7 +42,7 @@ export class JobsApplicationService {
         jobTypeORM.salary,
         jobTypeORM.currency,
         jobTypeORM.visible,
-        jobTypeORM.date
+        jobTypeORM.date.date
       );
 
     return Result.ok(getByIdResponseDto);
@@ -63,7 +65,7 @@ export class JobsApplicationService {
 
     const getByIdResponseDto: GetJobBySpecialtyResponse =
       new GetJobBySpecialtyResponse(
-        jobTypeORM.id.value,
+        jobTypeORM.id,
         jobTypeORM.title,
         jobTypeORM.description,
         jobTypeORM.specialty,
@@ -74,12 +76,12 @@ export class JobsApplicationService {
         jobTypeORM.date
       );
 
-    return Result.ok(getByIdResponseDto);
+    return Result.ok(jobTypeORM);
   }
 
   async filterByRemuneration(
-    remuneration: string,
-  ): Promise<Result<AppNotification, GetJobBySpecialtyResponse>> {
+    remuneration: number,
+  ): Promise<Result<AppNotification, GetJobByRemunerationResponse>> {
     /*
     const notification: AppNotification = await this.idValidator.validate(id);
 
@@ -87,14 +89,14 @@ export class JobsApplicationService {
       return Result.error(notification);
     }*/
 
-    const getJobBySpecialtyQuery: GetJobsBySpecialtyQuery =
-      new GetJobsBySpecialtyQuery(remuneration);
+    const getJobByRemunerationQuery: GetJobsByRemunerationQuery =
+      new GetJobsByRemunerationQuery(remuneration);
 
-    const jobTypeORM = await this.queryBus.execute(getJobBySpecialtyQuery);
+    const jobTypeORM = await this.queryBus.execute(getJobByRemunerationQuery);
 
-    const getByRemunerationResponseDto: GetJobBySpecialtyResponse =
-      new GetJobBySpecialtyResponse(
-        jobTypeORM.id.value,
+    const getByRemunerationResponseDto: GetJobByRemunerationResponse =
+      new GetJobByRemunerationResponse(
+        jobTypeORM.id,
         jobTypeORM.title,
         jobTypeORM.description,
         jobTypeORM.specialty,
@@ -105,6 +107,6 @@ export class JobsApplicationService {
         jobTypeORM.date
       );
 
-    return Result.ok(getByRemunerationResponseDto);
+    return Result.ok(jobTypeORM);
   }
 }

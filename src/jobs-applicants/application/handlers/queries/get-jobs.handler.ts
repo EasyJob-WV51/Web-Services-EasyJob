@@ -38,7 +38,6 @@ export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
     ) {
       const jobDto = new GetJobDto();
       jobDto.id = Number(ormJob.id);
-      jobDto.companyId = Number(ormJob.companyId);
       jobDto.title = ormJob.title;
       jobDto.description = ormJob.description;
       jobDto.specialty = ormJob.specialty;

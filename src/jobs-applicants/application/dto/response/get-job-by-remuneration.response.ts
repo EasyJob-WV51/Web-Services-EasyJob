@@ -1,4 +1,4 @@
-export class GetJobByRemuneration {
+export class GetJobByRemunerationResponse {
   constructor(
     public id: number,
     public title: string,
