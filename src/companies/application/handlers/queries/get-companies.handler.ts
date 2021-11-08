@@ -14,45 +14,36 @@ export class GetCompaniesHandler implements IQueryHandler<GetCompaniesQuery> {
     const sql = `
     SELECT 
         id,
-        last_name as lastName,
-        first_name as firstName,
-        my_specialty as mySpecialty,
-        my_experience as myExperience,
-        description,
+        name_company as nameCompany,
+        description_company as descriptionCompany,
+        img_company as imgCompany,
         email,
-        password,
-        name_github as nameGithub,
-        img_applicant as imgApplicant
+        password
     FROM
         companies
     ORDER BY
-        last_name, first_name;  
+        name_company;  
     `;
 
-    const ormApplicants = await manager.query(sql);
+    const ormCompanies = await manager.query(sql);
 
-    if (ormApplicants.length <= 0) {
+    if (ormCompanies.length <= 0) {
       return [];
     }
 
-    const applicants: GetApplicantsDto[] = ormApplicants.map(function (
-      ormApplicant,
+    const companies: GetCompaniesDto[] = ormCompanies.map(function (
+      ormCompany,
     ) {
-      const applicantDto = new GetApplicantsDto();
-      applicantDto.id = Number(ormApplicant.id);
-      applicantDto.firstName = ormApplicant.firstName;
-      applicantDto.lastName = ormApplicant.lastName;
-      applicantDto.email = ormApplicant.email;
-      applicantDto.password = ormApplicant.password;
-      applicantDto.mySpecialty = ormApplicant.mySpecialty;
-      applicantDto.myExperience = ormApplicant.myExperience;
-      applicantDto.description = ormApplicant.description;
-      applicantDto.nameGithub = ormApplicant.nameGithub;
-      applicantDto.imgApplicant = ormApplicant.imgApplicant;
-
-      return applicantDto;
+      const companyDto = new GetCompaniesDto();
+      companyDto.id = Number(ormCompany.id);
+      companyDto.nameCompany = ormCompany.nameCompany;
+      companyDto.email = ormCompany.email;
+      companyDto.password = ormCompany.password;
+      companyDto.descriptionCompany = ormCompany.descriptionCompany;
+      companyDto.imgCompany = ormCompany.imgCompany;
+      return companyDto;
     });
 
-    return applicants;
+    return companies;
   }
 }

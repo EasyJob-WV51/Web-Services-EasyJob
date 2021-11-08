@@ -2,30 +2,30 @@ import { Result } from 'typescript-result';
 import { AppNotification } from '../../../common/application/app.notification';
 
 export class NameCompany {
-  private readonly firstName: string;
+  private readonly nameCompany: string;
   private static MAX_LENGTH = 30;
 
-  private constructor(firstName: string) {
-    this.firstName = firstName;
+  private constructor(nameCompany: string) {
+    this.nameCompany = nameCompany;
 
   }
 
-  public getFirstName(): string {
-    return this.firstName;
+  public getNameCompany(): string {
+    return this.nameCompany;
   }
 
   public static create(
-    firstName: string,
+    nameCompany: string,
   ): Result<AppNotification, NameCompany> {
     const notification: AppNotification = new AppNotification();
 
-    firstName = (firstName ?? '').trim();
+    nameCompany = (nameCompany ?? '').trim();
 
-    if (firstName === '') {
+    if (nameCompany === '') {
       notification.addError('firsName is required', null);
     }
 
-    if (firstName.length > this.MAX_LENGTH) {
+    if (nameCompany.length > this.MAX_LENGTH) {
       notification.addError(
         `The maximum length of an firstName is ${this.MAX_LENGTH} characters including spaces`,
         null,
@@ -36,6 +36,6 @@ export class NameCompany {
       return Result.error(notification);
     }
 
-    return Result.ok(new NameCompany(firstName));
+    return Result.ok(new NameCompany(nameCompany));
   }
 }

@@ -2,7 +2,7 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { UpdateCompanyRequestDto } from '../../dtos/request/update-company-request.dto';
 import { UpdateCompanyCommand } from '../../commands/update-company.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CompanyTypeORM } from '../../../infraestructure/persistence/typeorm/entities/company.typeorm';
+import { CompanyTypeORM } from '../../../infrastructure/persistence/typeorm/entities/company.typeorm';
 import { Repository } from 'typeorm';
 import { Company } from '../../../domain/entities/company.entity';
 import { CompanyFactory } from '../../../domain/factories/company.factory';

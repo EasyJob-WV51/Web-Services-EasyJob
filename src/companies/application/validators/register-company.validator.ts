@@ -1,5 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
-import { CompanyTypeORM } from '../../infraestructure/persistence/typeorm/entities/company.typeorm';
+import { CompanyTypeORM } from '../../infrastructure/persistence/typeorm/entities/company.typeorm';
 import { Repository } from 'typeorm';
 import { RegisterCompanyRequestDto } from '../dtos/request/register-company-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
@@ -20,7 +20,7 @@ export class RegisterCompanyValidator {
     if (nameCompany.length <= 0) {
       notification.addError('Company nameCompany is required', null);
     }
-    
+
     const email: string = registerCompanyRequestDto.email.trim();
 
     if (email.length <= 0) {

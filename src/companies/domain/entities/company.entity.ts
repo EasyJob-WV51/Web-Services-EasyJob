@@ -32,7 +32,7 @@ export class Company extends AggregateRoot {
   public register() {
     const event = new CompanyRegisteredEvent(
       this.id.getValue(),
-      this.nameCompany.getFirstName(),
+      this.nameCompany.getNameCompany(),
       this.email.getValue(),
       this.password.getValue(),
       this.descriptionCompany,

@@ -1,7 +1,7 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { RegisterCompanyCommand } from '../../commands/register-company.command';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CompanyTypeORM } from '../../../infraestructure/persistence/typeorm/entities/company.typeorm';
+import { CompanyTypeORM } from '../../../infrastructure/persistence/typeorm/entities/company.typeorm';
 import { Repository } from 'typeorm';
 import { Result } from 'typescript-result';
 import { AppNotification } from '../../../../common/application/app.notification';
