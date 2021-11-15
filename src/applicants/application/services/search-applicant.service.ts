@@ -15,7 +15,7 @@ export class SearchApplicantService {
 
   async searchApplicant(
     keyword: string,
-  ): Promise<Result<AppNotification, SearchApplicantResponseDto>> {
+  ): Promise<Result<AppNotification, SearchApplicantResponseDto[]>> {
     const notification: AppNotification =
       await this.keywordSearchApplicantValidator.validate(keyword);
 
