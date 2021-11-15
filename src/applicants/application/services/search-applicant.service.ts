@@ -34,7 +34,7 @@ export class SearchApplicantService {
     const searchApplicantResponseDto = searchApplicantsDto.map(function (
       searchApplicant,
     ) {
-      return new searchApplicantResponseDto(
+      return new SearchApplicantResponseDto(
         searchApplicant.id,
         searchApplicant.firstName,
         searchApplicant.lastName,

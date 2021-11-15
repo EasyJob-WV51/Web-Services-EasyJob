@@ -41,7 +41,7 @@ export class SearchApplicantHandler
       ormApplicant,
     ) {
       const applicantDto = new SearchApplicantDto();
-      applicantDto.id = Number(ormApplicant.id);
+      applicantDto.id = ormApplicant.id.value;
       applicantDto.firstName = ormApplicant.name.firstName;
       applicantDto.lastName = ormApplicant.name.lastName;
       applicantDto.email = ormApplicant.email.value;

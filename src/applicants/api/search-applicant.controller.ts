@@ -28,7 +28,7 @@ export class SearchApplicantController {
     isArray: true,
   })
   async searchApplicant(
-    @Param('keyword') keyword,
+    @Param('keyword') keyword: string,
     @Res({ passthrough: true }) response,
   ): Promise<object> {
     try {
