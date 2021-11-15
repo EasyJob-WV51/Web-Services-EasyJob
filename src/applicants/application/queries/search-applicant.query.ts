@@ -1,3 +1,3 @@
 export class SearchApplicantQuery {
-  constructor(readonly keyWord: string) {}
+  constructor(readonly keyword: string) {}
 }

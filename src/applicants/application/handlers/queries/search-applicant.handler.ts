@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ApplicantTypeORM } from '../../../infrastructure/persistence/typeorm/entities/applicant.typeorm';
 import { Repository } from 'typeorm';
 import { SearchApplicantDto } from '../../dtos/queries/search-applicant.dto';
-import { GetApplicantsDto } from '../../dtos/queries/get-applicants.dto';
 
 @QueryHandler(SearchApplicantQuery)
 export class SearchApplicantHandler
@@ -16,12 +15,21 @@ export class SearchApplicantHandler
   ) {}
 
   async execute(query: SearchApplicantQuery) {
-    const keyWord = query.keyWord;
+    const keyword = query.keyword;
 
     const ormApplicants = await this.applicantRepository
       .createQueryBuilder('applicant')
       .where('applicant.first_name like :first_name', {
-        first_name: `%${keyWord}%`,
+        first_name: `%${keyword}%`,
+      })
+      .orWhere('applicant.last_name like :last_name', {
+        last_name: `%${keyword}%`,
+      })
+      .orWhere('applicant.my_specialty like :my_specialty', {
+        my_specialty: `%${keyword}%`,
+      })
+      .orWhere('applicant.name_github like :name_github', {
+        name_github: `%${keyword}%`,
       })
       .getMany();
 
