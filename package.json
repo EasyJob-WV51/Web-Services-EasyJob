@@ -30,6 +30,7 @@
     "@nestjs/swagger": "^5.1.4",
     "@nestjs/typeorm": "^8.0.2",
     "fs": "^0.0.1-security",
+    "axios": "^0.23.0",
     "mysql": "^2.18.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -52,6 +53,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
     "jest": "^27.0.6",
+    "jest-cucumber": "^3.0.1",
     "prettier": "^2.3.2",
     "supertest": "^6.1.3",
     "ts-jest": "^27.0.3",
@@ -66,8 +68,7 @@
       "json",
       "ts"
     ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
+    "rootDir": "test",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"
     },
@@ -75,6 +76,9 @@
       "**/*.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.steps.ts"
+    ]
   }
 }
