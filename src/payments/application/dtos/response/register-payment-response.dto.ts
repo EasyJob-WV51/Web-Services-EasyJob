@@ -1,6 +1,6 @@
 export class RegisterPaymentResponseDto {
   constructor(
-    public readonly id: number,
+    public id: number,
     public readonly amount: number,
     public readonly company: string,
     public readonly PaymentOption: string,

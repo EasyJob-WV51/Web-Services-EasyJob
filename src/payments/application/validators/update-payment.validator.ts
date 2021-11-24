@@ -3,10 +3,6 @@ import { PaymentTypeORM } from '../../infrastructure/persistence/typeorm/entitie
 import { Repository } from 'typeorm';
 import { UpdatePaymentRequestDto } from '../dtos/request/update-payment-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
-import { Name } from '../../../common/domain/value-objects/name.value';
-import { Result } from 'typescript-result';
-import { Email } from '../../../common/domain/value-objects/email.value';
-import { Password } from '../../../common/domain/value-objects/password.value';
 
 export class UpdatePaymentValidator {
   constructor(

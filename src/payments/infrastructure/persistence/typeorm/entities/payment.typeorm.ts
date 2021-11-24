@@ -10,7 +10,7 @@ export class PaymentTypeORM {
   @Column('int', { name: 'charge_amount', nullable: false })
   public amount: number;
 
-  @Column('varchar', { name: 'company_name', length: 70, nullable: false })
+  @Column('varchar', { name: 'company', length: 70, nullable: false })
   public company: string;
 
   @Column('varchar', { name: 'Payment_Option', length: 20, nullable: false })

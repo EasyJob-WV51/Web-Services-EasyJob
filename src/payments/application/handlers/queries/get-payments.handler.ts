@@ -14,14 +14,14 @@ export class GetPaymentsHandler implements IQueryHandler<GetPaymentsQuery> {
     SELECT 
         id,
         charge_amount as amount,
-        company_name as company,
+        company as company,
         Payment_Option as PaymentOption,
         suscriptions as suscription,
-        payment_date as date,
+        payment_date as date
     FROM
         payments
     ORDER BY
-        company_name, charge_amount;  
+        company;  
     `;
 
     const ormPayments = await manager.query(sql);
@@ -30,9 +30,7 @@ export class GetPaymentsHandler implements IQueryHandler<GetPaymentsQuery> {
       return [];
     }
 
-    const payments: GetPaymentsDto[] = ormPayments.map(function (
-      ormPayment,
-    ) {
+    const payments: GetPaymentsDto[] = ormPayments.map(function (ormPayment) {
       const paymentDto = new GetPaymentsDto();
       paymentDto.id = Number(ormPayment.id);
       paymentDto.amount = ormPayment.amount;
