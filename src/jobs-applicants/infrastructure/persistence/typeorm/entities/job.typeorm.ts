@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne } from 'typeorm';
 import { IdTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/id.typeorm';
 import { MoneyTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/money.typeorm';
 import { JobDateTypeOrm } from './job-date.typeorm';
-import { CompanyTypeORM } from '../../../../../companies/infraestructure/persistence/typeorm/entities/company.typeorm';
+import { CompanyTypeORM } from '../../../../../companies/infrastructure/persistence/typeorm/entities/company.typeorm';
 import { JoinColumn } from 'typeorm/browser';
 import 'reflect-metadata';
 
