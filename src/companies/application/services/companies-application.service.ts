@@ -15,6 +15,9 @@ import { UpdateCompanyRequestDto } from '../dtos/request/update-company-request.
 import { UpdateCompanyResponseDto } from '../dtos/response/update-company-response.dto';
 import { UpdateCompanyValidator } from '../validators/update-company.validator';
 import { UpdateCompanyCommand } from '../commands/update-company.command';
+import { AuthenticateCompanyRequestDto } from '../dtos/request/authenticate-company-request.dto';
+import { AuthenticateCompanyResponseDto } from '../dtos/response/authenticate-company-response.dto';
+import { GetCompanyByEmailQuery } from '../queries/get-company-by-email.query';
 
 @Injectable()
 export class CompaniesApplicationService {
@@ -52,6 +55,37 @@ export class CompaniesApplicationService {
       );
 
     return Result.ok(getByIdResponseDto);
+  }
+
+  async Authenticate(
+    authenticateCompanyRequestDto: AuthenticateCompanyRequestDto
+  ): Promise<Result<AppNotification, AuthenticateCompanyResponseDto>>{
+    /*if (notification.hasErrors()) {
+      return Result.error(notification);
+    }*/
+    const getCompanyByEmailQuery: GetCompanyByEmailQuery =
+      new GetCompanyByEmailQuery(authenticateCompanyRequestDto.email);
+
+
+
+    const companyTypeORM = await this.queryBus.execute(getCompanyByEmailQuery);
+
+    if(getCompanyByEmailQuery==null || authenticateCompanyRequestDto.password !=companyTypeORM.password){
+      const e: AppNotification = new AppNotification();
+      e.addError(`email or password bad`, null);
+      return Result.error(e);
+    }
+
+    const authenticateCompanyResponseDto: AuthenticateCompanyResponseDto =
+      new AuthenticateCompanyResponseDto(
+        companyTypeORM.id,
+        companyTypeORM.nameCompany,
+        companyTypeORM.email,
+        companyTypeORM.password,
+        companyTypeORM.descriptionCompany,
+        companyTypeORM.imgCompany,
+      );
+    return Result.ok(authenticateCompanyResponseDto);
   }
 
   async register(
