@@ -9,7 +9,7 @@ export class CompanyMapper {
   public static toTypeORM(company: Company): CompanyTypeORM {
     const companyTypeORM: CompanyTypeORM = new CompanyTypeORM();
 
-    companyTypeORM.id = CompanyIdTypeORM.from(company.getId().getValue());
+    companyTypeORM.id = CompanyIdTypeORM.from(company.getCompanyId().getValue());
     companyTypeORM.nameCompany = NameCompanyTypeORM.from(
       company.getNameCompany().getNameCompany(),
     );

@@ -82,7 +82,7 @@ export class ApplicantController {
   @Post()
   @ApiOperation({ summary: 'Create new Applicant' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Applicant created',
     type: GetApplicantsDto,
   })
@@ -109,7 +109,7 @@ export class ApplicantController {
   @Put(':id')
   @ApiOperation({ summary: 'Update applicant information' })
   @ApiResponse({
-    status: 200,
+    status: 204,
     description: 'Applicant information updated',
     type: GetApplicantsDto,
   })
@@ -138,7 +138,7 @@ export class ApplicantController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete Applicant by Id' })
   @ApiResponse({
-    status: 200,
+    status: 204,
     description: 'Applicant deleted',
     type: GetApplicantsDto,
   })

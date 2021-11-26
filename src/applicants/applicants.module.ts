@@ -13,6 +13,10 @@ import { IdApplicantValidator } from './application/validators/id-applicant.vali
 import { DeleteApplicantHandler } from './application/handlers/commands/delete-applicant.handler';
 import { UpdateApplicantHandler } from './application/handlers/commands/update-applicant.handler';
 import { UpdateApplicantValidator } from './application/validators/update-applicant.validator';
+import { SearchApplicantHandler } from './application/handlers/queries/search-applicant.handler';
+import { KeywordSearchApplicantValidator } from './application/validators/keyword-search-applicant.validator';
+import { SearchApplicantService } from './application/services/search-applicant.service';
+import { SearchApplicantController } from './api/search-applicant.controller';
 
 export const CommandHandlers = [
   RegisterApplicantHandler,
@@ -20,18 +24,24 @@ export const CommandHandlers = [
   UpdateApplicantHandler,
 ];
 export const EventHandlers = [ApplicantRegisteredHandler];
-export const QueryHandlers = [GetApplicantsHandler, GetApplicantByIdHandler];
+export const QueryHandlers = [
+  GetApplicantsHandler,
+  GetApplicantByIdHandler,
+  SearchApplicantHandler,
+];
 export const Validators = [
   RegisterApplicantValidator,
   IdApplicantValidator,
   UpdateApplicantValidator,
+  KeywordSearchApplicantValidator,
 ];
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([ApplicantTypeORM])],
-  controllers: [ApplicantController],
+  controllers: [ApplicantController, SearchApplicantController],
   providers: [
     ApplicantsApplicationService,
+    SearchApplicantService,
     ...Validators,
     ...CommandHandlers,
     ...EventHandlers,

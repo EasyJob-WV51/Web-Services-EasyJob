@@ -4,8 +4,9 @@ import { Name } from '../../../common/domain/value-objects/name.value';
 import { Email } from '../../../common/domain/value-objects/email.value';
 import { Password } from '../../../common/domain/value-objects/password.value';
 import { ApplicantRegisteredEvent } from '../events/applicant-registered.event';
+import { User } from '../../../common/domain/factories/user/entities/abstract/user';
 
-export class Applicant extends AggregateRoot {
+export class Applicant extends AggregateRoot implements User {
   private id: ApplicantId;
   private name: Name;
   private email: Email;

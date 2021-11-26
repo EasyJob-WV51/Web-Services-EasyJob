@@ -8,10 +8,13 @@ import { AppNotification } from '../../../../common/application/app.notification
 import { Name } from '../../../../common/domain/value-objects/name.value';
 import { Email } from '../../../../common/domain/value-objects/email.value';
 import { Password } from '../../../../common/domain/value-objects/password.value';
-import { ApplicantFactory } from '../../../domain/factories/applicant.factory';
+import { ApplicantFactory } from '../../../../common/domain/factories/user/factories/concrete/applicant.factory';
 import { Applicant } from '../../../domain/entities/applicant.entity';
 import { ApplicantMapper } from '../../mappers/applicant.mapper';
 import { ApplicantId } from '../../../domain/value-objects/applicant-id.value';
+import { UserAbstractFactory } from "../../../../common/domain/factories/user/factories/abstract/user-abstract.factory";
+import { UserFactoryMethod } from "../../../../common/domain/factories/user/factories/user.factory.method";
+import { UserType } from "../../../../common/domain/factories/user/enum/user-type";
 
 @CommandHandler(RegisterApplicantCommand)
 export class RegisterApplicantHandler
@@ -49,16 +52,20 @@ export class RegisterApplicantHandler
       return 0;
     }
 
-    let applicant: Applicant = ApplicantFactory.createFrom(
-      nameResult.value,
-      emailResult.value,
-      passwordResult.value,
-      command.mySpecialty,
-      command.myExperience,
-      command.description,
-      command.nameGithub,
-      command.imgApplicant,
+    const userFactory: UserAbstractFactory = UserFactoryMethod.getType(
+      UserType.APPLICANT,
     );
+
+    let applicant: Applicant = userFactory.createFrom({
+      name: nameResult.value,
+      email: emailResult.value,
+      password: passwordResult.value,
+      mySpecialty: command.mySpecialty,
+      myExperience: command.myExperience,
+      description: command.description,
+      nameGithub: command.nameGithub,
+      imgApplicant: command.imgApplicant,
+    });
 
     let applicantTypeORM = ApplicantMapper.toTypeORM(applicant);
     applicantTypeORM = await this.applicantRepository.save(applicantTypeORM);
