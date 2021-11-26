@@ -8,13 +8,15 @@ export class GetAnnouncementsDto {
   @ApiProperty()
   public description: string;
   @ApiProperty()
-  public requiredspecialty: string;
+  public requiredSpecialty: string;
   @ApiProperty()
-  public requiredexperience: string;
+  public requiredExperience: string;
   @ApiProperty()
   public salary: number;
   @ApiProperty()
-  public typemoney: string;
+  public typeMoney: string;
   @ApiProperty()
   public visible: boolean;
+  @ApiProperty()
+  public companyId: number;
 }
