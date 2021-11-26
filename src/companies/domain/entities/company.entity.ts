@@ -4,8 +4,9 @@ import { NameCompany } from '../value-objects/namecompany.value';
 import { Email } from 'src/common/domain/value-objects/email.value';
 import { Password } from 'src/common/domain/value-objects/password.value';
 import { CompanyRegisteredEvent } from '../events/company-registered.event';
+import { User } from '../../../common/domain/factories/user/entities/abstract/user';
 
-export class Company extends AggregateRoot {
+export class Company extends AggregateRoot implements User {
   private id: CompanyId;
   private nameCompany: NameCompany;
   private email: Email;
@@ -40,7 +41,7 @@ export class Company extends AggregateRoot {
     );
     this.apply(event);
   }
-  public getId(): CompanyId {
+  public getCompanyId(): CompanyId {
     return this.id;
   }
   public getNameCompany(): NameCompany {
