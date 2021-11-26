@@ -1,10 +1,11 @@
-export class GetApplicantByIdDto {
+export class GetAnnouncementByIdDto {
   public id: number;
   public title: string;
   public description: string;
-  public experienceRequire: string;
-  public specilitationRequire: string;
+  public requiredSpecialty: string;
+  public requiredExperience: string;
   public salary: number;
-  public typemoney: string;
+  public typeMoney: string;
   public visible: boolean;
+  public companyId: number;
 }

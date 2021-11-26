@@ -1,6 +1,5 @@
-export class UpdateAnnouncementResponseDto {
+export class RegisterNewAnnouncementRequestDto {
   constructor(
-    public readonly id: number,
     public readonly title: string,
     public readonly description: string,
     public readonly requiredSpecialty: string,
@@ -8,6 +7,5 @@ export class UpdateAnnouncementResponseDto {
     public readonly salary: number,
     public readonly typeMoney: string,
     public readonly visible: boolean,
-    public readonly companyId: number,
   ) {}
 }

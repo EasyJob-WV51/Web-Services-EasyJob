@@ -1,50 +1,44 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { AnnouncementTypeORM } from '../../infrastructure/persistence/typeorm/entities/announcement.typeorm';
 import { Repository } from 'typeorm';
-import { UpdateAnnouncementDto } from '../dtos/request/update-applicant-request.dto';
+import { RegisterAnnouncementDto } from '../dtos/request/register-announcement-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
-import { Result } from 'typescript-result';
+import { RegisterNewAnnouncementRequestDto } from '../dtos/request/register-new-announcement-request.dto';
 
-export class UpdateAnnouncementValidator {
+export class RegisterNewAnnouncementValidator {
   constructor(
     @InjectRepository(AnnouncementTypeORM)
     private announcementRepository: Repository<AnnouncementTypeORM>,
   ) {}
 
   public async validate(
-    targetId: number,
-    updateAnnouncementRequestDto: UpdateAnnouncementDto,
+    registerAnnouncementRequestDto: RegisterNewAnnouncementRequestDto,ida:number,
   ): Promise<AppNotification> {
     const notification: AppNotification = new AppNotification();
 
-    const id: number = updateAnnouncementRequestDto.id;
-
-    if (id == null) {
-      notification.addError('Announcement id is required', null);
-    }
-
-    const title: string = updateAnnouncementRequestDto.title.trim();
+    const title: string =
+      registerAnnouncementRequestDto.title.trim();
 
     if (title.length <= 0) {
       notification.addError('Announcement title is required', null);
     }
 
     const description: string =
-      updateAnnouncementRequestDto.description.trim();
+      registerAnnouncementRequestDto.description.trim();
 
     if (description.length <= 0) {
       notification.addError('Announcement description is required', null);
     }
 
     const requiredSpecialty: string =
-      updateAnnouncementRequestDto.requiredSpecialty.trim();
+      registerAnnouncementRequestDto.requiredSpecialty.trim();
 
     if (requiredSpecialty.length <= 0) {
       notification.addError('Announcement requiredSpecialty is required', null);
     }
 
     const requiredExperience: string =
-      updateAnnouncementRequestDto.requiredExperience.trim();
+      registerAnnouncementRequestDto.requiredExperience.trim();
 
     if (requiredExperience.length <= 0) {
       notification.addError(
@@ -54,14 +48,14 @@ export class UpdateAnnouncementValidator {
     }
 
     const salary: number =
-      updateAnnouncementRequestDto.salary;
+      registerAnnouncementRequestDto.salary;
 
     if (salary == 0) {
       notification.addError('Announcement salary is required', null);
     }
 
     const typeMoney: string =
-      updateAnnouncementRequestDto.typeMoney.toString();
+      registerAnnouncementRequestDto.typeMoney.toString();
 
     if (typeMoney.length <= 0) {
       notification.addError('Announcement typeMoney is required', null);
@@ -69,6 +63,16 @@ export class UpdateAnnouncementValidator {
 
     if (notification.hasErrors()) {
       return notification;
+    }
+    const companyId: number =
+      ida;
+    const announcement: AnnouncementTypeORM = await this.announcementRepository
+      .createQueryBuilder()
+      .where('companyId = :companyId', { companyId })
+      .getOne();
+
+    if (announcement == null) {
+      notification.addError('Announcement companyId is bad', null);
     }
 
     return notification;
