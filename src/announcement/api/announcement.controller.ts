@@ -18,8 +18,6 @@ import { ApiController } from '../../common/api/api.controller';
 import { GetAnnouncementsQuery } from '../application/queries/get-announcement-query';
 import { GetAnnouncementByIdDto } from '../application/dtos/queries/get-announcement-by-id.dto';
 import { DeleteAnnouncementResponseDto } from '../application/dtos/response/delete-announcement-response.dto';
-import { UpdateAnnouncementDto } from '../application/dtos/request/update-applicant-request.dto';
-import { UpdateAnnouncementResponseDto } from '../application/dtos/response/update-announcement-response.dto';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -33,7 +31,7 @@ import { GetCompaniesDto } from '../../companies/application/dtos/queries/get-co
 @ApiBearerAuth()
 @ApiTags('announcements')
 @Controller('announcements')
-export class AnnouncementController{
+export class AnnouncementController {
   constructor(
     private readonly announcementsApplicationService: AnnouncementsApplicationService,
     private readonly queryBus: QueryBus,
@@ -46,10 +44,13 @@ export class AnnouncementController{
     type: GetAnnouncementsDto,
     isArray: true,
   })
-  async getAnnouncements(@Res({ passthrough: true }) response): Promise<object> {
-
+  async getAnnouncements(
+    @Res({ passthrough: true }) response,
+  ): Promise<object> {
     try {
-      const companies = await this.queryBus.execute(new GetAnnouncementsQuery());
+      const companies = await this.queryBus.execute(
+        new GetAnnouncementsQuery(),
+      );
       return ApiController.ok(response, companies);
     } catch (error) {
       return ApiController.serverError(response, error);
