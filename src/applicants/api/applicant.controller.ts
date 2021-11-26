@@ -159,4 +159,29 @@ export class ApplicantController {
       return ApiController.serverError(response, error);
     }
   }
+
+  @Get(':id/repos')
+  @ApiResponse({
+    status: 200,
+    description: 'Get All repositories of Github by Applicant Id',
+    type: String,
+    isArray: true,
+  })
+  async getAllRepositories(
+    @Param('id') id: number,
+    @Res({ passthrough: true }) response,
+  ): Promise<object> {
+    try {
+      const result: Result<AppNotification, string[]> =
+        await this.applicantsApplicationService.getAllRepositoriesById(id);
+
+      if (result.isSuccess()) {
+        return ApiController.created(response, result.value);
+      }
+
+      return ApiController.error(response, result.error.getErrors());
+    } catch (error) {
+      return ApiController.serverError(response, error);
+    }
+  }
 }

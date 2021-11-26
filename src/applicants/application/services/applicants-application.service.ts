@@ -15,6 +15,8 @@ import { UpdateApplicantRequestDto } from '../dtos/request/update-applicant-requ
 import { UpdateApplicantResponseDto } from '../dtos/response/update-applicant-response.dto';
 import { UpdateApplicantValidator } from '../validators/update-applicant.validator';
 import { UpdateApplicantCommand } from '../commands/update-applicant.command';
+import { GithubApiAdapter } from '../../domain/adapters/github-api/adapter/github-api.adapter';
+import { GithubApi } from '../../domain/adapters/github-api/adaptee/github-api';
 
 @Injectable()
 export class ApplicantsApplicationService {
@@ -55,6 +57,33 @@ export class ApplicantsApplicationService {
       );
 
     return Result.ok(getByIdResponseDto);
+  }
+
+  async getAllRepositoriesById(
+    id: number,
+  ): Promise<Result<AppNotification, string[]>> {
+    const notification: AppNotification = await this.idValidator.validate(id);
+
+    if (notification.hasErrors()) {
+      return Result.error(notification);
+    }
+
+    const getApplicantByIdQuery: GetApplicantByIdQuery =
+      new GetApplicantByIdQuery(id);
+
+    const applicantTypeORM = await this.queryBus.execute(getApplicantByIdQuery);
+
+    const githubApiAdapter: GithubApiAdapter = new GithubApiAdapter(
+      new GithubApi(),
+    );
+
+    const result = await githubApiAdapter
+      .getRepositories(applicantTypeORM.nameGithub)
+      .then((response: string[]) => {
+        return response;
+      });
+
+    return Result.ok(result);
   }
 
   async register(
