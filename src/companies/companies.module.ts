@@ -14,11 +14,16 @@ import { DeleteCompanyHandler } from './application/handlers/commands/delete-com
 import { UpdateCompanyHandler } from './application/handlers/commands/update-company.handler';
 import { UpdateCompanyValidator } from './application/validators/update-company.validator';
 import { GetCompanyByEmailHandler } from './application/handlers/queries/get-company-by-email.handler';
+import { RegisterAnnouncementHandler } from '../announcement/application/handlers/commands/register-announcement.handler';
+import { RegisterAnnouncementValidator } from '../announcement/application/validators/register-applicant.validator';
+import { RegisterNewAnnouncementValidator } from '../announcement/application/validators/register-new-announcement.validator';
+import { AnnouncementTypeORM} from '../announcement/infrastructure/persistence/typeorm/entities/announcement.typeorm';
 
 export const CommandHandlers = [
   RegisterCompanyHandler,
   DeleteCompanyHandler,
   UpdateCompanyHandler,
+  RegisterAnnouncementHandler,
 ];
 export const EventHandlers = [CompanyRegisteredHandler];
 export const QueryHandlers = [
@@ -30,10 +35,12 @@ export const Validators = [
   RegisterCompanyValidator,
   IdCompanyValidator,
   UpdateCompanyValidator,
+  RegisterAnnouncementValidator,
+  RegisterNewAnnouncementValidator,
 ];
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([CompanyTypeORM])],
+  imports: [CqrsModule, TypeOrmModule.forFeature([CompanyTypeORM,AnnouncementTypeORM])],
   controllers: [CompanyController],
   providers: [
     CompaniesApplicationService,

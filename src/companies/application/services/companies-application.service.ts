@@ -18,6 +18,11 @@ import { UpdateCompanyCommand } from '../commands/update-company.command';
 import { AuthenticateCompanyRequestDto } from '../dtos/request/authenticate-company-request.dto';
 import { AuthenticateCompanyResponseDto } from '../dtos/response/authenticate-company-response.dto';
 import { GetCompanyByEmailQuery } from '../queries/get-company-by-email.query';
+import { RegisterNewAnnouncementRequestDto} from '../../../announcement/application/dtos/request/register-new-announcement-request.dto';
+import { RegisterAnnouncementResponseDto } from '../../../announcement/application/dtos/response/register-announcement-response.dto';
+import { RegisterAnnouncementValidator } from '../../../announcement/application/validators/register-applicant.validator';
+import { RegisterNewAnnouncementValidator } from '../../../announcement/application/validators/register-new-announcement.validator';
+import { RegisterAnnouncementCommand } from '../../../announcement/application/commands/register-announcement.command';
 
 @Injectable()
 export class CompaniesApplicationService {
@@ -27,6 +32,8 @@ export class CompaniesApplicationService {
     private registerCompanyValidator: RegisterCompanyValidator,
     private idValidator: IdCompanyValidator,
     private updateCompanyValidator: UpdateCompanyValidator,
+    private registerAnnouncementValidator: RegisterAnnouncementValidator,
+    private registerNewAnnouncementValidator: RegisterNewAnnouncementValidator,
   ) {}
 
   async getById(
@@ -185,5 +192,37 @@ export class CompaniesApplicationService {
       );
 
     return Result.ok(deleteCompanyResponseDto);
+  }
+  async postA(
+    id: number,
+    registerAnnouncementDto: RegisterNewAnnouncementRequestDto,
+  ): Promise<Result<AppNotification, RegisterAnnouncementResponseDto>> {
+    const notification: AppNotification= await this.registerNewAnnouncementValidator.validate(registerAnnouncementDto,id);
+    if (notification.hasErrors()){
+      return Result.error(notification);
+    }
+    const registerAnnouncementCommand: RegisterAnnouncementCommand=new RegisterAnnouncementCommand(
+      registerAnnouncementDto.title,
+      registerAnnouncementDto.description,
+      registerAnnouncementDto.requiredSpecialty,
+      registerAnnouncementDto.requiredExperience,
+      registerAnnouncementDto.salary,
+      registerAnnouncementDto.typeMoney,
+      registerAnnouncementDto.visible,
+      id
+    )
+    const announcementId=await this.commandBus.execute(registerAnnouncementCommand);
+    const registerAnnouncementResponseDto: RegisterAnnouncementResponseDto=new RegisterAnnouncementResponseDto(
+      announcementId,
+      registerAnnouncementDto.title,
+      registerAnnouncementDto.description,
+      registerAnnouncementDto.requiredSpecialty,
+      registerAnnouncementDto.requiredExperience,
+      registerAnnouncementDto.salary,
+      registerAnnouncementDto.typeMoney,
+      registerAnnouncementDto.visible,
+      id
+    );
+    return Result.ok(registerAnnouncementResponseDto);
   }
 }

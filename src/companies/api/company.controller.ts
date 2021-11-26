@@ -29,6 +29,9 @@ import {
 import { GetCompaniesDto } from '../application/dtos/queries/get-companies.dto';
 import { AuthenticateCompanyRequestDto } from '../application/dtos/request/authenticate-company-request.dto';
 import { AuthenticateCompanyResponseDto } from '../application/dtos/response/authenticate-company-response.dto';
+import { GetAnnouncementsDto } from '../../announcement/application/dtos/queries/get-announcements.dto';
+import { RegisterNewAnnouncementRequestDto } from '../../announcement/application/dtos/request/register-new-announcement-request.dto';
+import { RegisterAnnouncementResponseDto } from '../../announcement/application/dtos/response/register-announcement-response.dto';
 
 //Controller
 @ApiBearerAuth()
@@ -184,6 +187,29 @@ export class CompanyController {
 
       return ApiController.error(response, result.error.getErrors());
     } catch (error) {
+      return ApiController.serverError(response, error);
+    }
+  }
+  @Post('postAnn/:id')
+  @ApiOperation({ summary: 'Announcement create' })
+  @ApiResponse({
+    status: 204,
+    description: 'Announcement create',
+    type: GetAnnouncementsDto,
+  })
+  async registerAnn(
+    @Param('id') id: number,
+    @Body() registerAnnouncementDto: RegisterNewAnnouncementRequestDto,
+    @Res({ passthrough: true }) response,
+  ): Promise<object>{
+    try{
+      const result: Result<AppNotification, RegisterAnnouncementResponseDto>=
+        await this.companiesApplicationService.postA( id,registerAnnouncementDto);
+      if(result.isSuccess()){
+        return ApiController.created(response, result.value);
+      }
+      return ApiController.error(response, result.error.getErrors());
+    } catch (error){
       return ApiController.serverError(response, error);
     }
   }
