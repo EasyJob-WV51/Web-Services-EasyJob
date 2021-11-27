@@ -4,11 +4,14 @@ import { Repository } from 'typeorm';
 import { RegisterAnnouncementDto } from '../dtos/request/register-announcement-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
 import { RegisterNewAnnouncementRequestDto } from '../dtos/request/register-new-announcement-request.dto';
+import { CompanyTypeORM } from '../../../companies/infrastructure/persistence/typeorm/entities/company.typeorm';
 
 export class RegisterNewAnnouncementValidator {
   constructor(
     @InjectRepository(AnnouncementTypeORM)
     private announcementRepository: Repository<AnnouncementTypeORM>,
+    @InjectRepository(CompanyTypeORM)
+    private companyRepository: Repository<CompanyTypeORM>,
   ) {}
 
   public async validate(
@@ -66,12 +69,12 @@ export class RegisterNewAnnouncementValidator {
     }
     const companyId: number =
       ida;
-    const announcement: AnnouncementTypeORM = await this.announcementRepository
+    const company: CompanyTypeORM = await this.companyRepository
       .createQueryBuilder()
-      .where('companyId = :companyId', { companyId })
+      .where('id = :companyId', { companyId })
       .getOne();
 
-    if (announcement == null) {
+    if (company == null) {
       notification.addError('Announcement companyId is bad', null);
     }
 

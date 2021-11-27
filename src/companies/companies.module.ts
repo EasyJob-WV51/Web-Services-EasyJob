@@ -18,6 +18,8 @@ import { RegisterAnnouncementHandler } from '../announcement/application/handler
 import { RegisterAnnouncementValidator } from '../announcement/application/validators/register-applicant.validator';
 import { RegisterNewAnnouncementValidator } from '../announcement/application/validators/register-new-announcement.validator';
 import { AnnouncementTypeORM} from '../announcement/infrastructure/persistence/typeorm/entities/announcement.typeorm';
+import { RegisterNewPaymentValidator } from '../payments/application/validators/register-new-payment.validator';
+import { PaymentTypeORM } from '../payments/infrastructure/persistence/typeorm/entities/payment.typeorm';
 
 export const CommandHandlers = [
   RegisterCompanyHandler,
@@ -37,10 +39,11 @@ export const Validators = [
   UpdateCompanyValidator,
   RegisterAnnouncementValidator,
   RegisterNewAnnouncementValidator,
+  RegisterNewPaymentValidator,
 ];
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([CompanyTypeORM,AnnouncementTypeORM])],
+  imports: [CqrsModule, TypeOrmModule.forFeature([CompanyTypeORM,AnnouncementTypeORM, PaymentTypeORM])],
   controllers: [CompanyController],
   providers: [
     CompaniesApplicationService,

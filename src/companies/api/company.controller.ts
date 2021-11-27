@@ -32,6 +32,9 @@ import { AuthenticateCompanyResponseDto } from '../application/dtos/response/aut
 import { GetAnnouncementsDto } from '../../announcement/application/dtos/queries/get-announcements.dto';
 import { RegisterNewAnnouncementRequestDto } from '../../announcement/application/dtos/request/register-new-announcement-request.dto';
 import { RegisterAnnouncementResponseDto } from '../../announcement/application/dtos/response/register-announcement-response.dto';
+import { GetPaymentsDto } from '../../payments/application/dtos/queries/get-payments.dto';
+import { RegisterNewPaymentRequestDto } from '../../payments/application/dtos/request/register-new-payment-request.dto';
+import { RegisterPaymentResponseDto } from '../../payments/application/dtos/response/register-payment-response.dto';
 
 //Controller
 @ApiBearerAuth()
@@ -205,6 +208,29 @@ export class CompanyController {
     try{
       const result: Result<AppNotification, RegisterAnnouncementResponseDto>=
         await this.companiesApplicationService.postA( id,registerAnnouncementDto);
+      if(result.isSuccess()){
+        return ApiController.created(response, result.value);
+      }
+      return ApiController.error(response, result.error.getErrors());
+    } catch (error){
+      return ApiController.serverError(response, error);
+    }
+  }
+  @Post('pay/:id')
+  @ApiOperation({summary: 'Payment create'})
+  @ApiResponse({
+    status: 204,
+    description: 'Payment create',
+    type: GetPaymentsDto,
+  })
+  async pay(
+   @Param('id')id:number,
+   @Body() registerPayDto: RegisterNewPaymentRequestDto,
+   @Res({passthrough: true}) response,
+  ): Promise<object>{
+    try{
+      const result: Result<AppNotification, RegisterPaymentResponseDto>=
+        await this.companiesApplicationService.pay(id, registerPayDto);
       if(result.isSuccess()){
         return ApiController.created(response, result.value);
       }

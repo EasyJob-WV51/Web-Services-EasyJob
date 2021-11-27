@@ -68,7 +68,7 @@ export class PaymentsApplicationService {
     const registerPaymentCommand: RegisterPaymentCommand =
       new RegisterPaymentCommand(
         registerPaymentRequestDto.amount,
-        registerPaymentRequestDto.company,
+        registerPaymentRequestDto.companyId,
         registerPaymentRequestDto.PaymentOption,
         registerPaymentRequestDto.suscription,
         registerPaymentRequestDto.date,
@@ -79,7 +79,7 @@ export class PaymentsApplicationService {
       new RegisterPaymentResponseDto(
         paymentId,
         registerPaymentRequestDto.amount,
-        registerPaymentRequestDto.company,
+        registerPaymentRequestDto.companyId,
         registerPaymentRequestDto.PaymentOption,
         registerPaymentRequestDto.suscription,
         registerPaymentRequestDto.date,
@@ -107,7 +107,7 @@ export class PaymentsApplicationService {
         id,
         updatePaymentRequestDto.id,
         updatePaymentRequestDto.amount,
-        updatePaymentRequestDto.company,
+        updatePaymentRequestDto.companyId,
         updatePaymentRequestDto.PaymentOption,
         updatePaymentRequestDto.suscription,
         updatePaymentRequestDto.date,
@@ -149,7 +149,7 @@ export class PaymentsApplicationService {
       new DeletePaymentResponseDto(
         paymentTypeORM.id.value,
         paymentTypeORM.amount,
-        paymentTypeORM.company,
+        paymentTypeORM.companyId,
         paymentTypeORM.PaymentOption,
         paymentTypeORM.suscription,
         paymentTypeORM.date,

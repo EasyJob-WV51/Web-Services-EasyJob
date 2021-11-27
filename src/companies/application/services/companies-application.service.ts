@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CommandBus, QueryBus } from '@nestjs/cqrs';
+import { CommandBus, EventBus, QueryBus } from '@nestjs/cqrs';
 import { RegisterCompanyValidator } from '../validators/register-company.validator';
 import { RegisterCompanyRequestDto } from '../dtos/request/register-company-request.dto';
 import { Result } from 'typescript-result';
@@ -23,17 +23,23 @@ import { RegisterAnnouncementResponseDto } from '../../../announcement/applicati
 import { RegisterAnnouncementValidator } from '../../../announcement/application/validators/register-applicant.validator';
 import { RegisterNewAnnouncementValidator } from '../../../announcement/application/validators/register-new-announcement.validator';
 import { RegisterAnnouncementCommand } from '../../../announcement/application/commands/register-announcement.command';
+import { RegisterNewPaymentRequestDto } from '../../../payments/application/dtos/request/register-new-payment-request.dto';
+import { RegisterPaymentResponseDto } from '../../../payments/application/dtos/response/register-payment-response.dto';
+import { RegisterNewPaymentValidator } from '../../../payments/application/validators/register-new-payment.validator';
+import { PaymentRegisteredByCompanyEvent } from '../../domain/events/payment-registered-by-company.event';
 
 @Injectable()
 export class CompaniesApplicationService {
   constructor(
     private commandBus: CommandBus,
     private queryBus: QueryBus,
+    private eventBus: EventBus,
     private registerCompanyValidator: RegisterCompanyValidator,
     private idValidator: IdCompanyValidator,
     private updateCompanyValidator: UpdateCompanyValidator,
     private registerAnnouncementValidator: RegisterAnnouncementValidator,
     private registerNewAnnouncementValidator: RegisterNewAnnouncementValidator,
+    private registerNewPaymentValidator: RegisterNewPaymentValidator,
   ) {}
 
   async getById(
@@ -224,5 +230,31 @@ export class CompaniesApplicationService {
       id
     );
     return Result.ok(registerAnnouncementResponseDto);
+  }
+  async pay(
+    idc: number,
+    registerPaymentDto: RegisterNewPaymentRequestDto,
+  ): Promise<Result<AppNotification, RegisterPaymentResponseDto>> {
+    const notification: AppNotification= await this.registerNewPaymentValidator.validate(registerPaymentDto,idc)
+    if(notification.hasErrors()){
+      return Result.error(notification);
+    }
+    const registerPaymentEvent: PaymentRegisteredByCompanyEvent= new PaymentRegisteredByCompanyEvent(
+      registerPaymentDto.amount,
+      idc,
+      registerPaymentDto.PaymentOption,
+      registerPaymentDto.suscription,
+      registerPaymentDto.date
+    )
+    const paymentId=await this.eventBus.publish(registerPaymentEvent);
+    const registerPaymentResponseDto:RegisterPaymentResponseDto=new RegisterPaymentResponseDto(
+      paymentId,
+      registerPaymentEvent.amount,
+      registerPaymentEvent.companyId,
+      registerPaymentEvent.PaymentOption,
+      registerPaymentEvent.suscription,
+      registerPaymentEvent.date,
+    );
+    return Result.ok(registerPaymentResponseDto);
   }
 }

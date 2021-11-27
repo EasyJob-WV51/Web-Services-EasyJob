@@ -13,6 +13,7 @@ import { IdPaymentValidator } from './application/validators/id-payment.validato
 import { DeletePaymentHandler } from './application/handlers/commands/delete-payment.handler';
 import { UpdatePaymentHandler } from './application/handlers/commands/update-payment.handler';
 import { UpdatePaymentValidator } from './application/validators/update-payment.validator';
+import { CompanyTypeORM } from '../companies/infrastructure/persistence/typeorm/entities/company.typeorm';
 
 export const CommandHandlers = [
   RegisterPaymentHandler,
@@ -28,7 +29,7 @@ export const Validators = [
 ];
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([PaymentTypeORM])],
+  imports: [CqrsModule, TypeOrmModule.forFeature([PaymentTypeORM,CompanyTypeORM])],
   controllers: [PaymentController],
   providers: [
     PaymentsApplicationService,

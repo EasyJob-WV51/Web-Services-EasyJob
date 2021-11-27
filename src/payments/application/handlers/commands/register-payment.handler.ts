@@ -21,7 +21,7 @@ export class RegisterPaymentHandler
   async execute(command: RegisterPaymentCommand) {
     let payment: Payment = PaymentFactory.createFrom(
       command.amount,
-      command.company,
+      command.companyId,
       command.PaymentOption,
       command.suscription,
       command.date,

@@ -4,15 +4,18 @@ import { Repository } from 'typeorm';
 import { RegisterPaymentRequestDto } from '../dtos/request/register-payment-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
 import { CompanyTypeORM } from '../../../companies/infrastructure/persistence/typeorm/entities/company.typeorm';
+import { RegisterNewPaymentRequestDto } from '../dtos/request/register-new-payment-request.dto';
 
-export class RegisterPaymentValidator {
+export class RegisterNewPaymentValidator {
   constructor(
     @InjectRepository(PaymentTypeORM)
     private paymentRepository: Repository<PaymentTypeORM>,
+    @InjectRepository(CompanyTypeORM)
+    private companyRepository: Repository<CompanyTypeORM>,
   ) {}
 
   public async validate(
-    registerPaymentRequestDto: RegisterPaymentRequestDto,
+    registerPaymentRequestDto: RegisterNewPaymentRequestDto,idc:number,
   ): Promise<AppNotification> {
     const notification: AppNotification = new AppNotification();
 
@@ -22,12 +25,12 @@ export class RegisterPaymentValidator {
       notification.addError('Payment amount is required', null);
     }
 
-   /* const companyId: number =
-      registerPaymentRequestDto.companyId;
-    const company: CompanyTypeORM = await this.paymentRepository
-    if (company.length <= 0) {
-      notification.addError('Payment company name is required', null);
-    }*/
+    /* const companyId: number =
+       registerPaymentRequestDto.companyId;
+     const company: CompanyTypeORM = await this.paymentRepository
+     if (company.length <= 0) {
+       notification.addError('Payment company name is required', null);
+     }*/
 
     const PaymentOption: string = registerPaymentRequestDto.PaymentOption.trim();
 
@@ -52,15 +55,24 @@ export class RegisterPaymentValidator {
       return notification;
     }
 
-    /*const payment: PaymentTypeORM = await this.paymentRepository
+    const companyId: number = idc;
+    const payment: PaymentTypeORM = await this.paymentRepository
       .createQueryBuilder()
-      .where('company = :company', { company })
+      .where('company_id=:companyId', { companyId })
       .getOne();
 
     if (payment != null) {
       notification.addError('Payment company is taken', null);
-    }*/
+    }
 
+    const id: number=idc;
+    const company: CompanyTypeORM=await this.companyRepository
+      .createQueryBuilder()
+      .where('id=:id', { id })
+      .getOne();
+    if (company == null) {
+      notification.addError('company id not found', null);
+    }
     return notification;
   }
 }

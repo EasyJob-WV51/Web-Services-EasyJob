@@ -1,6 +1,5 @@
-export class PaymentRegisteredEvent {
+export class PaymentRegisteredByCompanyEvent {
   constructor(
-    public id: number,
     public amount: number,
     public companyId: number,
     public PaymentOption: string,

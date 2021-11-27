@@ -14,7 +14,7 @@ export class GetPaymentsHandler implements IQueryHandler<GetPaymentsQuery> {
     SELECT 
         id,
         charge_amount as amount,
-        company as company,
+        company_id as companyId,
         Payment_Option as PaymentOption,
         suscriptions as suscription,
         payment_date as date
@@ -34,7 +34,7 @@ export class GetPaymentsHandler implements IQueryHandler<GetPaymentsQuery> {
       const paymentDto = new GetPaymentsDto();
       paymentDto.id = Number(ormPayment.id);
       paymentDto.amount = ormPayment.amount;
-      paymentDto.company = ormPayment.company;
+      paymentDto.companyId = ormPayment.companyId;
       paymentDto.PaymentOption = ormPayment.PaymentOption;
       paymentDto.suscription = ormPayment.suscription;
       paymentDto.date = ormPayment.date;
