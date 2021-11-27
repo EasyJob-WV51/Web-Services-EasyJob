@@ -1,4 +1,4 @@
-export class RegisterPaymentRequestDto {
+export class PaymentRegisteredByCompanyEvent {
   constructor(
     public readonly amount: number,
     public readonly companyId: number,

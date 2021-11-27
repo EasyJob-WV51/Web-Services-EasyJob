@@ -24,7 +24,7 @@ export class UpdatePaymentHandler
     const payment: Payment = PaymentFactory.withId(
       idResult,
       command.amount,
-      command.company,
+      command.companyId,
       command.PaymentOption,
       command.suscription,
       command.date,

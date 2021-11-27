@@ -8,7 +8,7 @@ export class PaymentMapper {
 
     paymentTypeORM.id = PaymentIdTypeORM.from(payment.getId().getValue());
     paymentTypeORM.amount = payment.getAmount();
-    paymentTypeORM.company = payment.getCompany();
+    paymentTypeORM.companyId = payment.getCompanyId();
     paymentTypeORM.PaymentOption = payment.getOption();
     paymentTypeORM.suscription = payment.getSuscription();
     paymentTypeORM.date = payment.getDate();
