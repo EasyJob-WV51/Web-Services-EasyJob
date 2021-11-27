@@ -20,7 +20,7 @@ export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
         salary,
         currency,
         visible,
-        date_format(date, '%d %m %Y') AS date
+        date_format(date, '%Y/%m/%d') AS date
     FROM
         announcement
     ORDER BY
@@ -33,9 +33,7 @@ export class GetJobsHandler implements IQueryHandler<GetJobsQuery> {
       return [];
     }
 
-    const jobs: GetJobDto[] = ormJobs.map(function (
-      ormJob,
-    ) {
+    const jobs: GetJobDto[] = ormJobs.map(function (ormJob) {
       const jobDto = new GetJobDto();
       jobDto.id = Number(ormJob.id);
       jobDto.title = ormJob.title;

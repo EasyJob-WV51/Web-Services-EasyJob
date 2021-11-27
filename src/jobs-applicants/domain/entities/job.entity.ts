@@ -1,7 +1,7 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { Id } from '../../../common/domain/value-objects/id.value';
 import { Money } from '../../../common/domain/value-objects/money.value';
-import { JobDate } from '../value-objects/job-date.value';
+import { DateCustom } from '../value-objects/date-custom';
 import { JobApplied } from '../events/job-applied';
 
 export class Job extends AggregateRoot {
@@ -14,7 +14,7 @@ export class Job extends AggregateRoot {
   private salary: Money;
   private visible: boolean;
   private onlyPractitioner: boolean;
-  private date: JobDate;
+  private date: DateCustom;
 
   public constructor(
     id: Id,
@@ -26,7 +26,7 @@ export class Job extends AggregateRoot {
     salary: Money,
     visible: boolean,
     onlyPractitioner: boolean,
-    date: JobDate,
+    date: DateCustom,
   ) {
     super();
     this.id = id;
@@ -52,7 +52,7 @@ export class Job extends AggregateRoot {
       this.showSalary().getAmount(),
       this.showSalary().getCurrency(),
       this.isVisible(),
-      this.showDate().dateToString()
+      this.showDate().getDate()
     );
     this.apply(event);
   }
@@ -122,10 +122,10 @@ export class Job extends AggregateRoot {
   }
 
   public changeDateOfAttributes(day: number, month: number, year: number) {
-    this.date = JobDate.of(day, month, year);
+    this.date = DateCustom.of(day, month, year);
   }
 
-  public changeDate(date: JobDate) {
+  public changeDate(date: DateCustom) {
     this.date = date;
   }
 }

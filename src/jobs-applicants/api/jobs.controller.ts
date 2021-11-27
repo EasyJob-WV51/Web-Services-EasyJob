@@ -7,7 +7,7 @@ import { GetJobDto } from '../application/dto/queries/get-job.dto';
 import { Result } from 'typescript-result';
 import { AppNotification } from '../../common/application/app.notification';
 import { JobsApplicationService } from '../application/services/jobs-application.service';
-import { GetJobByIdResponseDto } from '../application/dto/response/get-job-by-id.response.dto';
+import { GetJobResponseDto } from '../application/dto/response/get-job.response.dto';
 import { GetJobBySpecialtyResponse } from '../application/dto/response/get-job-by-specialty.response';
 import { GetJobByRemunerationResponse } from '../application/dto/response/get-job-by-remuneration.response';
 
@@ -41,18 +41,18 @@ export class JobsController {
   @ApiResponse({
     status: 200,
     description: 'Job returned',
-    type: GetJobByIdResponseDto,
+    type: GetJobResponseDto,
   })
   async getById(
     @Param('id') id: number,
     @Res({ passthrough: true }) response,
   ): Promise<object> {
     try {
-      const result: Result<AppNotification, GetJobByIdResponseDto> =
+      const result: Result<AppNotification, GetJobResponseDto> =
         await this.jobsApplicationService.getById(id);
 
       if (result.isSuccess()) {
-        return ApiController.created(response, result.value);
+        return ApiController.ok(response, result.value);
       }
 
       return ApiController.error(response, result.error.getErrors());
@@ -61,12 +61,12 @@ export class JobsController {
     }
   }
 
-  @Get('remuneration/:remuneration')
+  @Get('remuneration')
   @ApiOperation({ summary: 'Get Job filter by remuneration' })
   @ApiResponse({
     status: 200,
     description: 'Job returned',
-    type: GetJobByIdResponseDto,
+    type: GetJobResponseDto,
   })
   async filterByRemuneration(
     @Param('remuneration') remuneration: number,

@@ -1,18 +1,12 @@
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { IdTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/id.typeorm';
 import { MoneyTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/money.typeorm';
-import { JobDateTypeOrm } from './job-date.typeorm';
-import { CompanyTypeORM } from '../../../../../companies/infraestructure/persistence/typeorm/entities/company.typeorm';
-import { JoinColumn } from 'typeorm/browser';
-import 'reflect-metadata';
+import { DateCustomTypeOrm } from './date-custom-type.orm';
 
 @Entity('announcement')
 export class JobTypeOrm {
   @Column((type) => IdTypeORM, { prefix: false })
   public id: IdTypeORM;
-
-  //@ManyToOne(type => CompanyTypeORM)
-  //companyTypeORM: CompanyTypeORM;
 
   @Column('varchar', { name: 'title', length: 250, nullable: false })
   public title: string;
@@ -35,6 +29,6 @@ export class JobTypeOrm {
   @Column('int', { name: 'onlyPractitioner', nullable: false })
   public onlyPractitioner: boolean;
 
-  @Column((type) => JobDateTypeOrm, { prefix: false })
-  public date: JobDateTypeOrm;
+  @Column((type) => DateCustomTypeOrm, { prefix: false })
+  public date: DateCustomTypeOrm;
 }

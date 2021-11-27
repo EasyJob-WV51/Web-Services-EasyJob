@@ -3,7 +3,7 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiController } from '../../common/api/api.controller';
 import { GetPractitionersQuery } from '../application/queries/get-practitioners.query';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { GetJobByIdResponseDto } from '../application/dto/response/get-job-by-id.response.dto';
+import { GetJobResponseDto } from '../application/dto/response/get-job.response.dto';
 import { Result } from 'typescript-result';
 import { AppNotification } from '../../common/application/app.notification';
 
@@ -19,7 +19,7 @@ export class PractitionersController {
   @ApiResponse({
     status: 200,
     description: 'Job returned',
-    type: GetJobByIdResponseDto,
+    type: GetJobResponseDto,
   })
   async getAll(@Res({ passthrough: true }) response): Promise<object> {
     try {

@@ -1,6 +1,6 @@
 import { Column } from 'typeorm';
 
-export class JobDateTypeOrm {
+export class DateCustomTypeOrm {
   @Column('date', { name: 'date', nullable: false })
   public date: string;
 
@@ -11,9 +11,7 @@ export class JobDateTypeOrm {
   }
 
   public static from(date: string) {
-    return new JobDateTypeOrm(
-      date
-    );
+    return new DateCustomTypeOrm(date);
   }
   public static of(
     day: number,
@@ -21,6 +19,6 @@ export class JobDateTypeOrm {
     year: number
   ) {
     let  date = `${day}/${month}/${year}`;
-    return new JobDateTypeOrm(date);
+    return new DateCustomTypeOrm(date);
   }
 }
