@@ -28,12 +28,12 @@ export class UpdatePaymentValidator {
       notification.addError('Payment amount is required', null);
     }
 
-    const company: string =
-      updatePaymentRequestDto.company.trim();
-
+    const company: number =
+      updatePaymentRequestDto.companyId;
+/*
     if (company.length <= 0) {
       notification.addError('Payment company name is required', null);
-    }
+    }*/
 
     const PaymentOption: string = updatePaymentRequestDto.PaymentOption.trim();
 
@@ -77,12 +77,12 @@ export class UpdatePaymentValidator {
 
     otherPayment = await this.paymentRepository
       .createQueryBuilder()
-      .where('company = :company', { company })
+      .where('company_id = :companyId', { company })
       .getOne();
 
     if (
       payment != null &&
-      otherPayment.company !== payment.company
+      otherPayment.companyId !== payment.companyId
     ) {
       notification.addError('Payment company is taken', null);
     }

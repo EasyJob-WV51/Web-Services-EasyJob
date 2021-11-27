@@ -14,11 +14,20 @@ import { DeleteCompanyHandler } from './application/handlers/commands/delete-com
 import { UpdateCompanyHandler } from './application/handlers/commands/update-company.handler';
 import { UpdateCompanyValidator } from './application/validators/update-company.validator';
 import { GetCompanyByEmailHandler } from './application/handlers/queries/get-company-by-email.handler';
+import { RegisterAnnouncementHandler } from '../announcement/application/handlers/commands/register-announcement.handler';
+import { RegisterAnnouncementValidator } from '../announcement/application/validators/register-applicant.validator';
+import { RegisterNewAnnouncementValidator } from '../announcement/application/validators/register-new-announcement.validator';
+import { AnnouncementTypeORM} from '../announcement/infrastructure/persistence/typeorm/entities/announcement.typeorm';
+import { RegisterNewPaymentValidator } from '../payments/application/validators/register-new-payment.validator';
+import { PaymentTypeORM } from '../payments/infrastructure/persistence/typeorm/entities/payment.typeorm';
+import { RegisterNewPaymentHandler } from '../payments/application/handlers/commands/regiser-new-payment.handler';
 
 export const CommandHandlers = [
   RegisterCompanyHandler,
   DeleteCompanyHandler,
   UpdateCompanyHandler,
+  RegisterAnnouncementHandler,
+  RegisterNewPaymentHandler,
 ];
 export const EventHandlers = [CompanyRegisteredHandler];
 export const QueryHandlers = [
@@ -30,10 +39,13 @@ export const Validators = [
   RegisterCompanyValidator,
   IdCompanyValidator,
   UpdateCompanyValidator,
+  RegisterAnnouncementValidator,
+  RegisterNewAnnouncementValidator,
+  RegisterNewPaymentValidator,
 ];
 
 @Module({
-  imports: [CqrsModule, TypeOrmModule.forFeature([CompanyTypeORM])],
+  imports: [CqrsModule, TypeOrmModule.forFeature([CompanyTypeORM,AnnouncementTypeORM, PaymentTypeORM])],
   controllers: [CompanyController],
   providers: [
     CompaniesApplicationService,

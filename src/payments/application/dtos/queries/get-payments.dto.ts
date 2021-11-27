@@ -6,7 +6,7 @@ export class GetPaymentsDto {
   @ApiProperty()
   public amount: number;
   @ApiProperty()
-  public company: string;
+  public companyId: number;
   @ApiProperty()
   public PaymentOption: string;
   @ApiProperty()

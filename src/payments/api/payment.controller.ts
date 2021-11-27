@@ -82,7 +82,7 @@ export class PaymentController {
   @Post()
   @ApiOperation({ summary: 'Create new Payment' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Payment created',
     type: GetPaymentsDto,
   })
@@ -109,7 +109,7 @@ export class PaymentController {
   @Put(':id')
   @ApiOperation({ summary: 'Update payment information' })
   @ApiResponse({
-    status: 200,
+    status: 202,
     description: 'Payment information updated',
     type: GetPaymentsDto,
   })
@@ -138,7 +138,7 @@ export class PaymentController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete Payment by Id' })
   @ApiResponse({
-    status: 200,
+    status: 202,
     description: 'Payment deleted',
     type: GetPaymentsDto,
   })

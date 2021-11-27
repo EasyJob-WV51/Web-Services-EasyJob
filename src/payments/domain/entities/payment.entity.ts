@@ -5,7 +5,7 @@ import { PaymentRegisteredEvent } from '../events/payment-registered.event';
 export class Payment extends AggregateRoot {
   private id: PaymentId;
   private amount: number;
-  private company: string;
+  private companyId: number;
   private PaymentOption: string;
   private suscription: string;
   private date: string;
@@ -13,7 +13,7 @@ export class Payment extends AggregateRoot {
   public constructor(
     id: PaymentId,
     amount: number,
-    company: string,
+    companyId: number,
     PaymentOption: string,
     suscription: string,
     date: string,
@@ -21,7 +21,7 @@ export class Payment extends AggregateRoot {
     super();
     this.id = id;
     this.amount = amount;
-    this.company = company;
+    this.companyId = companyId;
     this.PaymentOption = PaymentOption;
     this.suscription = suscription;
     this.date = date;
@@ -31,7 +31,7 @@ export class Payment extends AggregateRoot {
     const event = new PaymentRegisteredEvent(
       this.id.getValue(),
       this.amount,
-      this.company,
+      this.companyId,
       this.PaymentOption,
       this.suscription,
       this.date,
@@ -47,8 +47,8 @@ export class Payment extends AggregateRoot {
     return this.amount;
   }
 
-  public getCompany(): string {
-    return this.company;
+  public getCompanyId(): number {
+    return this.companyId;
   }
 
   public getOption(): string {
@@ -67,8 +67,8 @@ export class Payment extends AggregateRoot {
     this.id = id;
   }
 
-  public changeCompanyName(company: string) {
-    this.company = company;
+  public changeCompanyName(companyId: number) {
+    this.companyId = companyId;
   }
 
   public changeAmount(amount: number) {

@@ -3,6 +3,7 @@ import { PaymentTypeORM } from '../../infrastructure/persistence/typeorm/entitie
 import { Repository } from 'typeorm';
 import { RegisterPaymentRequestDto } from '../dtos/request/register-payment-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
+import { CompanyTypeORM } from '../../../companies/infrastructure/persistence/typeorm/entities/company.typeorm';
 
 export class RegisterPaymentValidator {
   constructor(
@@ -21,12 +22,12 @@ export class RegisterPaymentValidator {
       notification.addError('Payment amount is required', null);
     }
 
-    const company: string =
-      registerPaymentRequestDto.company.trim();
-
+   /* const companyId: number =
+      registerPaymentRequestDto.companyId;
+    const company: CompanyTypeORM = await this.paymentRepository
     if (company.length <= 0) {
       notification.addError('Payment company name is required', null);
-    }
+    }*/
 
     const PaymentOption: string = registerPaymentRequestDto.PaymentOption.trim();
 
@@ -51,14 +52,14 @@ export class RegisterPaymentValidator {
       return notification;
     }
 
-    const payment: PaymentTypeORM = await this.paymentRepository
+    /*const payment: PaymentTypeORM = await this.paymentRepository
       .createQueryBuilder()
       .where('company = :company', { company })
       .getOne();
 
     if (payment != null) {
       notification.addError('Payment company is taken', null);
-    }
+    }*/
 
     return notification;
   }

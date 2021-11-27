@@ -4,7 +4,7 @@ import { PaymentId } from '../value-objects/payment-id.value';
 export class PaymentFactory {
   public static createFrom(
     amount: number,
-    company: string,
+    companyId: number,
     PaymentOption: string,
     suscription: string,
     date: string,
@@ -12,7 +12,7 @@ export class PaymentFactory {
     return new Payment(
       PaymentId.create(0),
       amount,
-      company,
+      companyId,
       PaymentOption,
       suscription,
       date,
@@ -22,7 +22,7 @@ export class PaymentFactory {
   public static withId(
     paymentId: PaymentId,
     amount: number,
-    company: string,
+    companyId: number,
     PaymentOption: string,
     suscription: string,
     date: string,
@@ -30,7 +30,7 @@ export class PaymentFactory {
     return new Payment(
       paymentId,
       amount,
-      company,
+      companyId,
       PaymentOption,
       suscription,
       date,

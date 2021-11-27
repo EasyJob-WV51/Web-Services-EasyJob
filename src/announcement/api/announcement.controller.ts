@@ -85,7 +85,7 @@ export class AnnouncementController {
   @Post()
   @ApiOperation({ summary: 'Create new Announcement' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Announcement created',
     type: GetAnnouncementsDto,
   })
@@ -112,7 +112,7 @@ export class AnnouncementController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete Announcement by Id' })
   @ApiResponse({
-    status: 200,
+    status: 202,
     description: 'Announcement deleted',
     type: GetCompaniesDto,
   })
