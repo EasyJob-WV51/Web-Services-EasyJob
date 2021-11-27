@@ -1,10 +1,10 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { AnnouncementId } from '../value-objects/announcement-id.value';
-import { AnnouncementRegisteredEvent} from '../events/announcement-registered.event';
+import { AnnouncementRegisteredEvent } from '../events/announcement-registered.event';
 import { register } from 'tsconfig-paths';
 import { CompanyId } from '../../../companies/domain/value-objects/company-id.value';
 
-export class Announcement extends AggregateRoot{
+export class Announcement extends AggregateRoot {
   private id: AnnouncementId;
   private title: string;
   private description: string;
@@ -32,13 +32,13 @@ export class Announcement extends AggregateRoot{
     this.description = description;
     this.requiredSpecialty = requiredSpecialty;
     this.requiredExperience = requiredExperience;
-    this.salary=salary;
-    this.typeMoney=typeMoney;
+    this.salary = salary;
+    this.typeMoney = typeMoney;
     this.visible = visible;
-    this.companyId=companyId;
+    this.companyId = companyId;
   }
-  public register(){
-    const event=new AnnouncementRegisteredEvent(
+  public register() {
+    const event = new AnnouncementRegisteredEvent(
       this.id.getValue(),
       this.title,
       this.description,
@@ -51,31 +51,31 @@ export class Announcement extends AggregateRoot{
     );
     this.apply(event);
   }
-  public getId(): AnnouncementId{
+  public getId(): AnnouncementId {
     return this.id;
   }
-  public getTitle(): string{
+  public getTitle(): string {
     return this.title;
   }
-  public getDescription(): string{
+  public getDescription(): string {
     return this.description;
   }
-  public getSpecialty(): string{
+  public getSpecialty(): string {
     return this.requiredSpecialty;
   }
-  public getExperience(): string{
+  public getExperience(): string {
     return this.requiredExperience;
   }
-  public getSalary(): number{
+  public getSalary(): number {
     return this.salary;
   }
-  public getTypeMoney(): string{
+  public getTypeMoney(): string {
     return this.typeMoney;
   }
-  public getVisible(): boolean{
+  public getVisible(): boolean {
     return this.visible;
   }
-  public getCompanyId(): number{
+  public getCompanyId(): number {
     return this.companyId;
   }
   public changeId(id: AnnouncementId) {
