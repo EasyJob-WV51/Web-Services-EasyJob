@@ -1,6 +1,6 @@
 module.exports = {
   type: 'mysql',
-  url: 'mysql://admin:adminadmin@mysql8.cselj9r9ujlf.us-east-2.rds.amazonaws.com:3306/estefano-bran-prueba',
+  url: process.env.EASY_JOB,
   migrationsRun: true,
   logging: true,
   timezone: '+0',
