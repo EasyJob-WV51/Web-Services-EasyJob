@@ -33,7 +33,7 @@ export class RegisterApplicationHandler implements ICommandHandler<RegisterAppli
     applicationId = applicationTypeOrm.id.value;
     application.changeId(Id.create(applicationTypeOrm.id.value));
     application = this.publisher.mergeObjectContext(application);
-    //TODO: Here events
+    application.created(); // Domain event
     application.commit();
     return applicationId;
   }
