@@ -3,6 +3,7 @@ import { getManager } from 'typeorm';
 import { GetApplicantsQuery } from '../../../../applicants/application/queries/get-applicants.query';
 import { GetApplicationDto } from '../../dto/queries/get-application.dto';
 import { GetApplicationsQuery } from '../../queries/get-applications.query';
+import { StateTypeMapper } from "../../mapper/state-type.mapper";
 
 @QueryHandler(GetApplicationsQuery)
 export class GetApplicationsHandler implements IQueryHandler<GetApplicationsQuery> {
@@ -27,10 +28,12 @@ export class GetApplicationsHandler implements IQueryHandler<GetApplicationsQuer
     }
     const applications: GetApplicationDto[] = ormApplication.map(function (ormApplication) {
       let applicationDto = new GetApplicationDto();
+      let stateString = StateTypeMapper.toTypeString(ormApplication.state);
+
       applicationDto.id = Number(ormApplication.id);
       applicationDto.applicantId = Number(ormApplication.applicantId);
       applicationDto.announcementId = Number(ormApplication.announcementId);
-      applicationDto.state = ormApplication.state;
+      applicationDto.state = stateString;
       applicationDto.date = ormApplication.date;
       return applicationDto;
     });
