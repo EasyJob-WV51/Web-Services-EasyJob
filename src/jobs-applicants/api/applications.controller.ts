@@ -85,7 +85,7 @@ export class ApplicationsController {
   @Put('/:id')
   @ApiOperation({ summary: 'Update application information' })
   @ApiResponse({
-    status: 204,
+    status: 202,
     description: 'Application information updated',
     type: GetApplicationDto,
   })
@@ -111,7 +111,7 @@ export class ApplicationsController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete application by id' })
   @ApiResponse({
-    status: 200,
+    status: 202,
     description: 'Application deleted',
     type: GetApplicationDto,
   })

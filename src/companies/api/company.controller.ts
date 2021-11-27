@@ -91,7 +91,7 @@ export class CompanyController {
   @Post('auth')
   @ApiOperation({ summary: 'Authenticate' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Sign in',
     type: GetCompaniesDto,
   })
@@ -116,7 +116,7 @@ export class CompanyController {
   @Post()
   @ApiOperation({ summary: 'Create new Company' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Company created',
     type: GetCompaniesDto,
   })
@@ -143,7 +143,7 @@ export class CompanyController {
   @Put(':id')
   @ApiOperation({ summary: 'Update company information' })
   @ApiResponse({
-    status: 200,
+    status: 202,
     description: 'Company information updated',
     type: GetCompaniesDto,
   })
@@ -172,7 +172,7 @@ export class CompanyController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete Company by Id' })
   @ApiResponse({
-    status: 200,
+    status: 202,
     description: 'Company deleted',
     type: GetCompaniesDto,
   })
@@ -196,7 +196,7 @@ export class CompanyController {
   @Post('postAnn/:id')
   @ApiOperation({ summary: 'Announcement create' })
   @ApiResponse({
-    status: 204,
+    status: 201,
     description: 'Announcement create',
     type: GetAnnouncementsDto,
   })
@@ -219,7 +219,7 @@ export class CompanyController {
   @Post('pay/:id')
   @ApiOperation({summary: 'Payment create'})
   @ApiResponse({
-    status: 204,
+    status: 201,
     description: 'Payment create',
     type: GetPaymentsDto,
   })
