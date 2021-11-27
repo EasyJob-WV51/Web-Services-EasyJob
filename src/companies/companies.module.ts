@@ -20,12 +20,14 @@ import { RegisterNewAnnouncementValidator } from '../announcement/application/va
 import { AnnouncementTypeORM} from '../announcement/infrastructure/persistence/typeorm/entities/announcement.typeorm';
 import { RegisterNewPaymentValidator } from '../payments/application/validators/register-new-payment.validator';
 import { PaymentTypeORM } from '../payments/infrastructure/persistence/typeorm/entities/payment.typeorm';
+import { RegisterNewPaymentHandler } from '../payments/application/handlers/commands/regiser-new-payment.handler';
 
 export const CommandHandlers = [
   RegisterCompanyHandler,
   DeleteCompanyHandler,
   UpdateCompanyHandler,
   RegisterAnnouncementHandler,
+  RegisterNewPaymentHandler,
 ];
 export const EventHandlers = [CompanyRegisteredHandler];
 export const QueryHandlers = [

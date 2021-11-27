@@ -26,14 +26,13 @@ import { RegisterAnnouncementCommand } from '../../../announcement/application/c
 import { RegisterNewPaymentRequestDto } from '../../../payments/application/dtos/request/register-new-payment-request.dto';
 import { RegisterPaymentResponseDto } from '../../../payments/application/dtos/response/register-payment-response.dto';
 import { RegisterNewPaymentValidator } from '../../../payments/application/validators/register-new-payment.validator';
-import { PaymentRegisteredByCompanyEvent } from '../../domain/events/payment-registered-by-company.event';
+import { RegisterNewPaymentCommand } from '../handlers/commands/register-new-payment.command';
 
 @Injectable()
 export class CompaniesApplicationService {
   constructor(
     private commandBus: CommandBus,
     private queryBus: QueryBus,
-    private eventBus: EventBus,
     private registerCompanyValidator: RegisterCompanyValidator,
     private idValidator: IdCompanyValidator,
     private updateCompanyValidator: UpdateCompanyValidator,
@@ -239,21 +238,21 @@ export class CompaniesApplicationService {
     if(notification.hasErrors()){
       return Result.error(notification);
     }
-    const registerPaymentEvent: PaymentRegisteredByCompanyEvent= new PaymentRegisteredByCompanyEvent(
+    const registerNewPaymentCommand: RegisterNewPaymentCommand= new RegisterNewPaymentCommand(
       registerPaymentDto.amount,
       idc,
       registerPaymentDto.PaymentOption,
       registerPaymentDto.suscription,
       registerPaymentDto.date
     )
-    const paymentId=await this.eventBus.publish(registerPaymentEvent);
+    const paymentId=await this.commandBus.execute(registerNewPaymentCommand);
     const registerPaymentResponseDto:RegisterPaymentResponseDto=new RegisterPaymentResponseDto(
       paymentId,
-      registerPaymentEvent.amount,
-      registerPaymentEvent.companyId,
-      registerPaymentEvent.PaymentOption,
-      registerPaymentEvent.suscription,
-      registerPaymentEvent.date,
+      registerPaymentDto.amount,
+      idc,
+      registerPaymentDto.PaymentOption,
+      registerPaymentDto.suscription,
+      registerPaymentDto.date,
     );
     return Result.ok(registerPaymentResponseDto);
   }
