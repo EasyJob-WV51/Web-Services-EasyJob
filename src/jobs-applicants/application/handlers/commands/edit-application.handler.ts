@@ -1,18 +1,12 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
-import { RegisterApplicationCommand } from '../../commands/register-application.command';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApplicationsTypeOrm } from '../../../infrastructure/persistence/typeorm/entities/applications.type.orm';
 import { Repository } from 'typeorm';
 import { ApplicationsEntity } from '../../../domain/entities/applications.entity';
-import { ApplicantTypeORM } from '../../../../applicants/infrastructure/persistence/typeorm/entities/applicant.typeorm';
 import { DateCustom } from '../../../domain/value-objects/date-custom';
 import { ApplicationFactory } from '../../../domain/factories/application.factory';
 import { ApplicationMapper } from '../../mapper/application.mapper';
-import { Id } from '../../../../common/domain/value-objects/id.value';
-import { StateType } from '../../../domain/enums/state-type.enum';
 import { EditApplicationCommand } from "../../commands/edit-application.command";
-import { IdTypeORM } from "../../../../common/infrastructure/persistence/typeorm/entities/id.typeorm";
-import { combineAll } from "rxjs";
 import { StateTypeMapper } from "../../mapper/state-type.mapper";
 
 @CommandHandler(EditApplicationCommand)

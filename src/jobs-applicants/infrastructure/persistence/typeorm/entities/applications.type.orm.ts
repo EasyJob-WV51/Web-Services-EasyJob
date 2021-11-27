@@ -1,4 +1,4 @@
-import { Column, Entity, Unique } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 import { IdTypeORM } from '../../../../../common/infrastructure/persistence/typeorm/entities/id.typeorm';
 import { DateCustomTypeOrm } from './date-custom-type.orm';
 import { StateType } from '../../../../domain/enums/state-type.enum';

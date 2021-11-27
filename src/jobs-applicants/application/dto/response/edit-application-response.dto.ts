@@ -1,5 +1,3 @@
-import { ApiProperty } from "@nestjs/swagger";
-
 export class EditApplicationResponseDto {
   constructor(
     public id: number,

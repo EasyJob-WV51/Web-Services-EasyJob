@@ -9,13 +9,8 @@ import { AppNotification } from '../../common/application/app.notification';
 import { GetApplicationResponseDto } from '../application/dto/response/get-application.response.dto';
 import { RegisterApplicationRequestDto } from '../application/dto/request/register-application-request.dto';
 import { EditApplicationCommand } from '../application/commands/edit-application.command';
-import { GetApplicantsDto } from "../../applicants/application/dtos/queries/get-applicants.dto";
 import { GetApplicationDto } from "../application/dto/queries/get-application.dto";
-import { RegisterApplicationResponseDto } from "../application/dto/response/register-application-response.dto";
-import { UpdateApplicantResponseDto } from "../../applicants/application/dtos/response/update-applicant-response.dto";
 import { EditApplicationResponseDto } from "../application/dto/response/edit-application-response.dto";
-import { GetCompaniesDto } from "../../companies/application/dtos/queries/get-companies.dto";
-import { DeleteCompanyResponseDto } from "../../companies/application/dtos/response/delete-company-response.dto";
 import { RemoveApplicationResponseDto } from "../application/dto/response/remove-application-response.dto";
 
 @ApiBearerAuth()
@@ -28,7 +23,7 @@ export class ApplicationsController {
   {}
 
   @Get()
-  @ApiOperation({ summary: 'Get All Applications' })
+  @ApiOperation({ summary: 'Get all applications' })
   @ApiResponse({
     status: 200,
     description: 'All applications returned',
@@ -45,7 +40,7 @@ export class ApplicationsController {
   }
 
   @Get('/:id')
-  @ApiOperation({ summary: 'Get Application by Id' })
+  @ApiOperation({ summary: 'Get application by id' })
   @ApiResponse({
     status: 200,
     description: 'Application returned',
@@ -65,7 +60,7 @@ export class ApplicationsController {
   }
 
   @Post()
-  @ApiOperation({ summary: 'Create new Application' })
+  @ApiOperation({ summary: 'Create new application' })
   @ApiResponse({
     status: 201,
     description: 'Application created',
@@ -114,7 +109,7 @@ export class ApplicationsController {
   }
 
   @Delete(':id')
-  @ApiOperation({ summary: 'Delete application by Id' })
+  @ApiOperation({ summary: 'Delete application by id' })
   @ApiResponse({
     status: 200,
     description: 'Application deleted',

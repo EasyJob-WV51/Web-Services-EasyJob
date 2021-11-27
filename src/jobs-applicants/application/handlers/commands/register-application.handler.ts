@@ -4,7 +4,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ApplicationsTypeOrm } from '../../../infrastructure/persistence/typeorm/entities/applications.type.orm';
 import { Repository } from 'typeorm';
 import { ApplicationsEntity } from '../../../domain/entities/applications.entity';
-import { ApplicantTypeORM } from '../../../../applicants/infrastructure/persistence/typeorm/entities/applicant.typeorm';
 import { DateCustom } from '../../../domain/value-objects/date-custom';
 import { ApplicationFactory } from '../../../domain/factories/application.factory';
 import { ApplicationMapper } from '../../mapper/application.mapper';

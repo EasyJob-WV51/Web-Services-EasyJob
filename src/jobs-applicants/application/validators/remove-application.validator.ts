@@ -2,9 +2,6 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { AppNotification } from "../../../common/application/app.notification";
 import { ApplicationsTypeOrm } from "../../infrastructure/persistence/typeorm/entities/applications.type.orm";
-import { EditApplicationRequestDto } from "../dto/request/edit-application-request.dto";
-import { StateType } from "../../domain/enums/state-type.enum";
-import { StateTypeMapper } from "../mapper/state-type.mapper";
 
 export class RemoveApplicationValidator {
   constructor(
