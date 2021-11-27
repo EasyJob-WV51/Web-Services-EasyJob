@@ -1,11 +1,9 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { UpdateCompanyRequestDto } from '../../dtos/request/update-company-request.dto';
 import { UpdateCompanyCommand } from '../../commands/update-company.command';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CompanyTypeORM } from '../../../infrastructure/persistence/typeorm/entities/company.typeorm';
 import { Repository } from 'typeorm';
 import { Company } from '../../../domain/entities/company.entity';
-import { CompanyFactory } from '../../../domain/factories/company.factory';
 import { Result } from 'typescript-result';
 import { AppNotification } from 'src/common/application/app.notification';
 import { CompanyId } from '../../../domain/value-objects/company-id.value';
@@ -13,6 +11,9 @@ import { NameCompany } from '../../../domain/value-objects/namecompany.value';
 import { Email } from 'src/common/domain/value-objects/email.value';
 import { Password } from 'src/common/domain/value-objects/password.value';
 import { CompanyMapper } from '../../mappers/company.mapper';
+import { UserAbstractFactory } from '../../../../common/domain/factories/user/factories/abstract/user-abstract.factory';
+import { UserFactoryMethod } from '../../../../common/domain/factories/user/factories/user.factory.method';
+import { UserType } from '../../../../common/domain/factories/user/enum/user-type';
 
 @CommandHandler(UpdateCompanyCommand)
 export class UpdateCompanyHandler
@@ -50,14 +51,18 @@ export class UpdateCompanyHandler
       return null;
     }
 
-    const company: Company = CompanyFactory.withId(
-      idResult,
-      nameResult.value,
-      emailResult.value,
-      passwordResult.value,
-      command.descriptionCompany,
-      command.imgCompany,
+    const userFactory: UserAbstractFactory = UserFactoryMethod.getType(
+      UserType.COMPANY,
     );
+
+    const company: Company = userFactory.withId({
+      companyId: idResult,
+      nameCompany: nameResult.value,
+      email: emailResult.value,
+      password: passwordResult.value,
+      descriptionCompany: command.descriptionCompany,
+      imgCompany: command.imgCompany,
+    });
 
     const companyTypeORM = CompanyMapper.toTypeORM(company);
     await this.companyRepository.update(command.targetId, companyTypeORM);

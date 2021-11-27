@@ -13,6 +13,7 @@ import { IdCompanyValidator } from './application/validators/id-company.validato
 import { DeleteCompanyHandler } from './application/handlers/commands/delete-company.handler';
 import { UpdateCompanyHandler } from './application/handlers/commands/update-company.handler';
 import { UpdateCompanyValidator } from './application/validators/update-company.validator';
+import { GetCompanyByEmailHandler } from './application/handlers/queries/get-company-by-email.handler';
 
 export const CommandHandlers = [
   RegisterCompanyHandler,
@@ -20,7 +21,11 @@ export const CommandHandlers = [
   UpdateCompanyHandler,
 ];
 export const EventHandlers = [CompanyRegisteredHandler];
-export const QueryHandlers = [GetCompaniesHandler, GetCompanyByIdHandler];
+export const QueryHandlers = [
+  GetCompaniesHandler,
+  GetCompanyByIdHandler,
+  GetCompanyByEmailHandler,
+];
 export const Validators = [
   RegisterCompanyValidator,
   IdCompanyValidator,

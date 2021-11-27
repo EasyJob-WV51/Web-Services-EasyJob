@@ -8,10 +8,14 @@ import { AppNotification } from '../../../../common/application/app.notification
 import { NameCompany } from '../../../domain/value-objects/namecompany.value';
 import { Email } from '../../../../common/domain/value-objects/email.value';
 import { Password } from '../../../../common/domain/value-objects/password.value';
-import { CompanyFactory } from '../../../domain/factories/company.factory';
+import { CompanyFactory } from '../../../../common/domain/factories/user/factories/concrete/company.factory';
 import { Company } from '../../../domain/entities/company.entity';
 import { CompanyMapper } from '../../mappers/company.mapper';
 import { CompanyId } from '../../../domain/value-objects/company-id.value';
+import { UserAbstractFactory } from '../../../../common/domain/factories/user/factories/abstract/user-abstract.factory';
+import { UserFactoryMethod } from '../../../../common/domain/factories/user/factories/user.factory.method';
+import { UserType } from '../../../../common/domain/factories/user/enum/user-type';
+import { User } from "../../../../common/domain/factories/user/entities/abstract/user";
 
 @CommandHandler(RegisterCompanyCommand)
 export class RegisterCompanyHandler
@@ -48,13 +52,17 @@ export class RegisterCompanyHandler
       return 0;
     }
 
-    let company: Company = CompanyFactory.createFrom(
-      nameResult.value,
-      emailResult.value,
-      passwordResult.value,
-      command.descriptionCompany,
-      command.imgCompany,
+    const userFactory: UserAbstractFactory = UserFactoryMethod.getType(
+      UserType.COMPANY,
     );
+
+    let company: Company = userFactory.createFrom({
+      nameCompany: nameResult.value,
+      email: emailResult.value,
+      password: passwordResult.value,
+      descriptionCompany: command.descriptionCompany,
+      imgCompany: command.imgCompany,
+    });
 
     let companyTypeORM = CompanyMapper.toTypeORM(company);
     companyTypeORM = await this.companyRepository.save(companyTypeORM);

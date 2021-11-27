@@ -4,14 +4,10 @@ import { QueryBus } from '@nestjs/cqrs';
 import { ApiController } from '../../common/api/api.controller';
 import { GetApplicationsQuery } from '../application/queries/get-applications.query';
 import { ApplicationsService } from '../application/services/applications.service';
-import { GetApplicationByIdQuery } from '../application/queries/get-application-by-id.query';
-import { application } from 'express';
 import { Result } from 'typescript-result';
 import { AppNotification } from '../../common/application/app.notification';
 import { GetApplicationResponseDto } from '../application/dto/response/get-application.response.dto';
-import error = Result.error;
 import { RegisterApplicationRequestDto } from '../application/dto/request/register-application-request.dto';
-import { GetJobResponseDto } from '../application/dto/response/get-job.response.dto';
 import { EditApplicationCommand } from '../application/commands/edit-application.command';
 
 @ApiTags('applications')

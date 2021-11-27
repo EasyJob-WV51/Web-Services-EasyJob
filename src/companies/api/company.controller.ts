@@ -27,6 +27,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { GetCompaniesDto } from '../application/dtos/queries/get-companies.dto';
+import { AuthenticateCompanyRequestDto } from '../application/dtos/request/authenticate-company-request.dto';
+import { AuthenticateCompanyResponseDto } from '../application/dtos/response/authenticate-company-response.dto';
+
 //Controller
 @ApiBearerAuth()
 @ApiTags('companies')
@@ -74,6 +77,31 @@ export class CompanyController {
       }
 
       return ApiController.ok(response, result);
+    } catch (error) {
+      return ApiController.serverError(response, error);
+    }
+  }
+
+  @Post('auth')
+  @ApiOperation({ summary: 'Authenticate' })
+  @ApiResponse({
+    status: 200,
+    description: 'Sign in',
+    type: GetCompaniesDto,
+  })
+  async Authenticate(
+    @Body() authenticateCompanyRequestDto: AuthenticateCompanyRequestDto,
+    @Res({ passthrough: true }) response,
+  ): Promise<object> {
+    try{
+      const result: Result<AppNotification, AuthenticateCompanyResponseDto> =
+        await this.companiesApplicationService.Authenticate(
+          authenticateCompanyRequestDto,
+        );
+      if (result.isSuccess()) {
+        return ApiController.created(response, result.value);
+      }
+      return ApiController.error(response, result.error.getErrors());
     } catch (error) {
       return ApiController.serverError(response, error);
     }

@@ -82,7 +82,7 @@ export class ApplicantController {
   @Post()
   @ApiOperation({ summary: 'Create new Applicant' })
   @ApiResponse({
-    status: 200,
+    status: 201,
     description: 'Applicant created',
     type: GetApplicantsDto,
   })
@@ -109,7 +109,7 @@ export class ApplicantController {
   @Put(':id')
   @ApiOperation({ summary: 'Update applicant information' })
   @ApiResponse({
-    status: 200,
+    status: 204,
     description: 'Applicant information updated',
     type: GetApplicantsDto,
   })
@@ -138,7 +138,7 @@ export class ApplicantController {
   @Delete(':id')
   @ApiOperation({ summary: 'Delete Applicant by Id' })
   @ApiResponse({
-    status: 200,
+    status: 204,
     description: 'Applicant deleted',
     type: GetApplicantsDto,
   })
@@ -149,6 +149,31 @@ export class ApplicantController {
     try {
       const result: Result<AppNotification, DeleteApplicantResponseDto> =
         await this.applicantsApplicationService.delete(id);
+
+      if (result.isSuccess()) {
+        return ApiController.created(response, result.value);
+      }
+
+      return ApiController.error(response, result.error.getErrors());
+    } catch (error) {
+      return ApiController.serverError(response, error);
+    }
+  }
+
+  @Get(':id/repos')
+  @ApiResponse({
+    status: 200,
+    description: 'Get All repositories of Github by Applicant Id',
+    type: String,
+    isArray: true,
+  })
+  async getAllRepositories(
+    @Param('id') id: number,
+    @Res({ passthrough: true }) response,
+  ): Promise<object> {
+    try {
+      const result: Result<AppNotification, string[]> =
+        await this.applicantsApplicationService.getAllRepositoriesById(id);
 
       if (result.isSuccess()) {
         return ApiController.created(response, result.value);

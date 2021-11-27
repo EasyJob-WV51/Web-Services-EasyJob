@@ -1,17 +1,16 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApplicantTypeORM } from '../../../applicants/infrastructure/persistence/typeorm/entities/applicant.typeorm';
 import { getManager, Repository } from 'typeorm';
-import { AnnouncementIdTypeORM } from '../../../announcement/infrastructure/persistence/typeorm/entities/announcement.id.typeorm';
 import { RegisterApplicationRequestDto } from '../dto/request/register-application-request.dto';
 import { AppNotification } from '../../../common/application/app.notification';
 import { DateCustom } from '../../domain/value-objects/date-custom';
-import { JobTypeOrm } from '../../infrastructure/persistence/typeorm/entities/job.typeorm';
 import { ApplicationsTypeOrm } from '../../infrastructure/persistence/typeorm/entities/applications.type.orm';
+import { AnnouncementTypeORM } from "../../../announcement/infrastructure/persistence/typeorm/entities/announcement.typeorm";
 
 export class RegisterApplicationValidator {
   constructor(
     @InjectRepository(ApplicantTypeORM) private applicantRepository: Repository<ApplicantTypeORM>,
-    @InjectRepository(JobTypeOrm) private announcementRepository: Repository<JobTypeOrm>
+    @InjectRepository(AnnouncementTypeORM) private announcementRepository: Repository<AnnouncementTypeORM>
   ) {}
 
   public async validate(registerApplicationRequest: RegisterApplicationRequestDto): Promise<AppNotification> {
@@ -42,7 +41,7 @@ export class RegisterApplicationValidator {
       return notification;
     }
 
-    const announcementTypeOrm: JobTypeOrm =
+    const announcementTypeOrm: AnnouncementTypeORM =
       await this.announcementRepository.findOne(registerApplicationRequest.announcementId);
     if (announcementTypeOrm == null) {
       notification.addError('Announcement no found', null);
