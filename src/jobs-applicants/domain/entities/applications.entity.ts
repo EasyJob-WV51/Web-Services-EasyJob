@@ -2,6 +2,9 @@ import { AggregateRoot } from '@nestjs/cqrs';
 import { Id } from '../../../common/domain/value-objects/id.value';
 import { DateCustom } from '../value-objects/date-custom';
 import { StateType } from '../enums/state-type.enum';
+import { ApplicationAcceptedEvent } from "../events/application-accepted.event";
+import { ApplicationDeniedEvent } from "../events/application-denied.event";
+import { ApplicationCreatedEvent } from "../events/application-created.event";
 
 export class ApplicationsEntity extends AggregateRoot {
   private id: Id;
@@ -23,6 +26,43 @@ export class ApplicationsEntity extends AggregateRoot {
     this.announcementId = announcementId;
     this.state = state;
     this.date = date;
+  }
+
+  public accepted() {
+    const event = new ApplicationAcceptedEvent(
+      this.showApplicationId(),
+      this.showApplicantId(),
+      this.showAnnouncementId(),
+      this.showState(),
+      this.showDatePostulation()
+    );
+    this.apply(event);
+  }
+
+  public denied() {
+    const event = new ApplicationDeniedEvent(
+      this.showApplicationId(),
+      this.showApplicantId(),
+      this.showAnnouncementId(),
+      this.showState(),
+      this.showDatePostulation()
+    );
+    this.apply(event);
+  }
+
+  public created() {
+    const event = new ApplicationCreatedEvent(
+      this.showApplicationId(),
+      this.showApplicantId(),
+      this.showAnnouncementId(),
+      this.showState(),
+      this.showDatePostulation()
+    );
+    this.apply(event);
+  }
+
+  public showApplicationId() {
+    return this.id.getValue();
   }
 
   public changeId(id: Id) {
