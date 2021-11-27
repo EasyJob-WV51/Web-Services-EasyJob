@@ -1,7 +1,6 @@
 import { ApplicationsEntity } from '../../domain/entities/applications.entity';
 import { ApplicationsTypeOrm } from '../../infrastructure/persistence/typeorm/entities/applications.type.orm';
 import { DateCustomTypeOrm } from '../../infrastructure/persistence/typeorm/entities/date-custom-type.orm';
-import { StateType } from '../../domain/enums/state-type.enum';
 
 export class ApplicationMapper {
   public static toTypeOrm(application: ApplicationsEntity) {

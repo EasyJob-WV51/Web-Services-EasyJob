@@ -1,6 +1,4 @@
-import { ApiProperty } from "@nestjs/swagger";
-
-export class EditApplicationResponseDto {
+export class RemoveApplicationResponseDto {
   constructor(
     public id: number,
     public applicantId: number,

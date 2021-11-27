@@ -10,6 +10,10 @@ import { GetApplicationByIdHandler } from './application/handlers/queries/get-ap
 import { ApplicantTypeORM } from '../applicants/infrastructure/persistence/typeorm/entities/applicant.typeorm';
 import { RegisterApplicationValidator } from './application/validators/register-application.validator';
 import { AnnouncementTypeORM } from "../announcement/infrastructure/persistence/typeorm/entities/announcement.typeorm";
+import { EditApplicationHandler } from "./application/handlers/commands/edit-application.handler";
+import { EditApplicationValidator } from "./application/validators/edit-application.validator";
+import { RemoveApplicationHandler } from "./application/handlers/commands/remove-application.handler";
+import { RemoveApplicationValidator } from "./application/validators/remove-application.validator";
 
 export const QueryHandlers =
   [
@@ -18,10 +22,16 @@ export const QueryHandlers =
   ];
 export const CommandHandler =
   [
-    RegisterApplicationHandler
-  ]
-
-export const Validators = [RegisterApplicationValidator];
+    RegisterApplicationHandler,
+    EditApplicationHandler,
+    RemoveApplicationHandler
+  ];
+export const Validators =
+  [
+    RegisterApplicationValidator,
+    EditApplicationValidator,
+    RemoveApplicationValidator
+  ];
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature([ApplicationsTypeOrm, AnnouncementTypeORM, ApplicantTypeORM])],

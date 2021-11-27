@@ -16,6 +16,20 @@ export class RegisterApplicationValidator {
   public async validate(registerApplicationRequest: RegisterApplicationRequestDto): Promise<AppNotification> {
     const notification: AppNotification = new AppNotification();
 
+    const applicantTypeOrm: ApplicantTypeORM =
+      await this.applicantRepository.findOne(registerApplicationRequest.applicantId);
+    if (applicantTypeOrm == null){
+      notification.addError('Applicant not found', null);
+      return notification;
+    }
+
+    const announcementTypeOrm: AnnouncementTypeORM =
+      await this.announcementRepository.findOne(registerApplicationRequest.announcementId);
+    if (announcementTypeOrm == null) {
+      notification.addError('Announcement no found', null);
+      return notification;
+    }
+
     let manager = getManager();
     let sql = `
     SELECT
@@ -29,22 +43,8 @@ export class RegisterApplicationValidator {
 
     let applicationTypeOrm: ApplicationsTypeOrm[] = await manager.query(sql);
 
-    if (applicationTypeOrm != null) {
-      notification.addError('Postulation registered', null);
-      return notification;
-    }
-
-    const applicantTypeOrm: ApplicantTypeORM =
-      await this.applicantRepository.findOne(registerApplicationRequest.applicantId);
-    if (applicantTypeOrm == null){
-      notification.addError('Applicant not found', null);
-      return notification;
-    }
-
-    const announcementTypeOrm: AnnouncementTypeORM =
-      await this.announcementRepository.findOne(registerApplicationRequest.announcementId);
-    if (announcementTypeOrm == null) {
-      notification.addError('Announcement no found', null);
+    if (applicationTypeOrm.length > 0) {
+      notification.addError('Application has already been registered', null);
       return notification;
     }
 
